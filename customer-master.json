@@ -9,7 +9,9 @@
         "State/Region": "Berlin",
         "Country": "Germany",
         "VAT number": "DE123456789",
-        "IBAN": "DE44500105175407324931"
+        "IBAN": "DE44500105175407324931",
+        "Phone": "+49 30 12345678",
+        "Email ": "info@muellergmbh.de "
     },
     {
         "Customer ID": "1002",
@@ -21,7 +23,9 @@
         "State/Region": "Île-de-France",
         "Country": "France",
         "VAT number": "FR40303265045",
-        "IBAN": "FR7630006000011234567890189"
+        "IBAN": "FR7630006000011234567890189",
+        "Phone": "+33 1 23456789",
+        "Email ": "contact@leclercsa.fr "
     },
     {
         "Customer ID": "1003",
@@ -33,7 +37,9 @@
         "State/Region": "Comunidad de Madrid",
         "Country": "Spain",
         "VAT number": "ESA2345678Z",
-        "IBAN": "ES9121000418450200051332"
+        "IBAN": "ES9121000418450200051332",
+        "Phone": "+34 91 1234567",
+        "Email ": "ventas@garciasl.es "
     },
     {
         "Customer ID": "1004",
@@ -45,7 +51,9 @@
         "State/Region": "Lazio",
         "Country": "Italy",
         "VAT number": "IT12345678901",
-        "IBAN": "IT60X0542811101000000123456"
+        "IBAN": "IT60X0542811101000000123456",
+        "Phone": "+39 06 12345678",
+        "Email ": "info@rossisrl.it "
     },
     {
         "Customer ID": "1005",
@@ -57,7 +65,9 @@
         "State/Region": "Noord-Holland",
         "Country": "Netherlands",
         "VAT number": "NL123456789B01",
-        "IBAN": "NL91ABNA0417164300"
+        "IBAN": "NL91ABNA0417164300",
+        "Phone": "+31 20 1234567",
+        "Email ": "info@vandijkbv.nl "
     },
     {
         "Customer ID": "1006",
@@ -69,7 +79,9 @@
         "State/Region": "Brussels-Capital Region",
         "Country": "Belgium",
         "VAT number": "BE0123456789",
-        "IBAN": "BE68539007547034"
+        "IBAN": "BE68539007547034",
+        "Phone": "+32 2 1234567",
+        "Email ": "info@dumontnv.be "
     },
     {
         "Customer ID": "1007",
@@ -81,7 +93,9 @@
         "State/Region": "Stockholms län",
         "Country": "Sweden",
         "VAT number": "SE556677889701",
-        "IBAN": "SE4550000000058398257466"
+        "IBAN": "SE4550000000058398257466",
+        "Phone": "+46 8 12345678",
+        "Email ": "info@svenssonab.se "
     },
     {
         "Customer ID": "1008",
@@ -93,7 +107,9 @@
         "State/Region": "Mazowieckie",
         "Country": "Poland",
         "VAT number": "PL1234567890",
-        "IBAN": "PL61109010140000071219812874"
+        "IBAN": "PL61109010140000071219812874",
+        "Phone": "+48 22 1234567",
+        "Email ": "biuro@kowalskispzoo.pl "
     },
     {
         "Customer ID": "1009",
@@ -105,6 +121,8 @@
         "State/Region": "Vienna",
         "Country": "Austria",
         "VAT number": "ATU12345678",
-        "IBAN": "AT611904300234573201"
+        "IBAN": "AT611904300234573201",
+        "Phone": "+43 1 2345678",
+        "Email ": "office@hubergmbh.at "
     }
 ]
