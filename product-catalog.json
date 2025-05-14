@@ -6,8 +6,7 @@
         "Packaging": "Tank truck",
         "Cur": "EUR",
         "Unit": "kg",
-        "Delivery Days": 10,
-        "null": null
+        "Delivery Days": 10
     },
     {
         "Product Name": "TDI",
@@ -16,8 +15,7 @@
         "Packaging": "Tank truck",
         "Cur": "EUR",
         "Unit": "kg",
-        "Delivery Days": 7,
-        "null": null
+        "Delivery Days": 7
     },
     {
         "Product Name": "PET",
@@ -26,8 +24,7 @@
         "Packaging": "Tank truck",
         "Cur": "EUR",
         "Unit": "kg",
-        "Delivery Days": 4,
-        "null": null
+        "Delivery Days": 4
     },
     {
         "Product Name": "PCS",
@@ -36,8 +33,7 @@
         "Packaging": "Big bag",
         "Cur": "EUR",
         "Unit": "kg",
-        "Delivery Days": 6,
-        "null": null
+        "Delivery Days": 6
     },
     {
         "Product Name": "Baypren",
@@ -46,8 +42,7 @@
         "Packaging": "IBC",
         "Cur": "EUR",
         "Unit": "kg",
-        "Delivery Days": 8,
-        "null": null
+        "Delivery Days": 8
     },
     {
         "Product Name": "Baytec",
@@ -56,8 +51,7 @@
         "Packaging": "IBC",
         "Cur": "EUR",
         "Unit": "kg",
-        "Delivery Days: 4,
-        "null": null
+        "Delivery Days: 4
     },
     {
         "Product Name": "Bayfill",
@@ -66,8 +60,7 @@
         "Packaging": "Drum",
         "Cur": "EUR",
         "Unit": "kg",
-        "Delivery Days": 14,
-        "null": null
+        "Delivery Days": 14
     },
     {
         "Product Name": "Baydur",
@@ -76,8 +69,7 @@
         "Packaging": "Drum",
         "Cur": "EUR",
         "Unit": "kg",
-        "Delivery Days": 11,
-        "null": null
+        "Delivery Days": 11
     },
     {
         "Product Name": null,
@@ -86,7 +78,6 @@
         "Packaging": null,
         "Cur": null,
         "Unit": null,
-        "Delivery Days ": null,
-        "null": null
+        "Delivery Days ": null
     }
 ]
