@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Customer Order Entry</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
     table {
       width: 100%;
@@ -18,7 +17,7 @@
     th {
       background-color: #f4f4f4;
     }
-    input[type='number'] {
+    input[type='number'], select {
       width: 100px;
     }
     .total {
@@ -32,9 +31,6 @@
     .form-section input {
       padding: 5px;
       margin-right: 10px;
-    }
-    .order-summary {
-      margin-top: 20px;
     }
     .order-button {
       margin-top: 20px;
@@ -56,57 +52,64 @@
     <input type="date" id="orderDate">
   </div>
 
-  <input type="file" id="fileUpload" accept=".xlsx, .xls" />
+  <button onclick="addOrderLine()">Add Product</button>
+  <table id="orderTable">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Code</th>
+        <th>Price (EUR/kg)</th>
+        <th>Unit</th>
+        <th>Delivery Days</th>
+        <th>Quantity (kg)</th>
+        <th style="text-align:right;">Total (EUR)</th>
+        <th>Delivery Date</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-  <div id="orderTableContainer"></div>
   <div class="total">Grand Total (EUR): €<span id="grandTotal">0.00</span></div>
-
-  <div class="order-summary">
-    <p><strong>Expected Delivery Date:</strong> <span id="deliveryDate">N/A</span></p>
-  </div>
 
   <div class="order-button">
     <button onclick="sendOrderConfirmation()">Order Now</button>
   </div>
 
   <script>
-    document.getElementById('fileUpload').addEventListener('change', handleFile, false);
     document.getElementById('orderDate').valueAsDate = new Date();
+    const orderTableBody = document.querySelector('#orderTable tbody');
+    const productCatalog = JSON.parse(localStorage.getItem('productCatalog') || '[]');
 
-    let deliveryDaysMax = 0;
+    function addOrderLine() {
+      const row = document.createElement('tr');
+      const productOptions = productCatalog.map((product, index) => 
+        `<option value="${index}">${product['Product Name']}</option>`).join('');
 
-    function handleFile(e) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const data = new Uint8Array(e.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
-        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-        const jsonData = XLSX.utils.sheet_to_json(firstSheet);
-        generateTable(jsonData);
-      };
-      reader.readAsArrayBuffer(file);
+      row.innerHTML = `
+        <td><select onchange="populateProductDetails(this)"><option value="">Select</option>${productOptions}</select></td>
+        <td class="code"></td>
+        <td class="price"></td>
+        <td class="unit"></td>
+        <td class="delivery"></td>
+        <td><input type="number" min="0" class="qtyInput" oninput="updateTotals()"></td>
+        <td style="text-align:right;">€<span class="lineTotal">0.00</span></td>
+        <td><span class="deliveryDate">N/A</span></td>
+      `;
+
+      orderTableBody.appendChild(row);
     }
 
-    function generateTable(products) {
-      let tableHTML = '<table><thead><tr><th>Product</th><th>Code</th><th>Price (EUR/kg)</th><th>Unit</th><th>Delivery Days</th><th>Quantity (kg)</th><th style="text-align:right;">Total (EUR)</th></tr></thead><tbody>';
-      products.forEach((item, index) => {
-        tableHTML += `<tr>
-          <td>${item['Product Name']}</td>
-          <td>${item['Product Code']}</td>
-          <td>€<span class="price">${item['Price']}</span></td>
-          <td>${item['Unit']}</td>
-          <td class="delivery">${item['Delivery Days']}</td>
-          <td><input type="number" min="0" data-index="${index}" class="qtyInput" placeholder="kg"></td>
-          <td style="text-align:right;">€<span class="lineTotal">0.00</span></td>
-        </tr>`;
-      });
-      tableHTML += '</tbody></table>';
-      document.getElementById('orderTableContainer').innerHTML = tableHTML;
+    function populateProductDetails(select) {
+      const row = select.closest('tr');
+      const index = select.value;
+      if (!productCatalog[index]) return;
 
-      document.querySelectorAll('.qtyInput').forEach(input => {
-        input.addEventListener('input', updateTotals);
-      });
+      const product = productCatalog[index];
+      row.querySelector('.code').textContent = product['Product Code'];
+      row.querySelector('.price').textContent = `€${product['Price']}`;
+      row.querySelector('.unit').textContent = product['Unit'];
+      row.querySelector('.delivery').textContent = product['Delivery Days'];
+      updateTotals();
     }
 
     function formatNumber(num) {
@@ -115,44 +118,53 @@
 
     function updateTotals() {
       let grandTotal = 0;
-      deliveryDaysMax = 0;
-      document.querySelectorAll('tbody tr').forEach(row => {
-        const price = parseFloat(row.querySelector('.price').textContent);
-        const qty = parseFloat(row.querySelector('.qtyInput').value || 0);
+      const orderDate = new Date(document.getElementById('orderDate').value);
+      document.querySelectorAll('#orderTable tbody tr').forEach(row => {
+        const priceText = row.querySelector('.price').textContent.replace('€', '');
+        const price = parseFloat(priceText) || 0;
+        const qty = parseFloat(row.querySelector('.qtyInput')?.value || 0);
         const deliveryDays = parseInt(row.querySelector('.delivery').textContent || 0);
-        if (qty > 0 && deliveryDays > deliveryDaysMax) {
-          deliveryDaysMax = deliveryDays;
-        }
         const lineTotal = price * qty;
         row.querySelector('.lineTotal').textContent = formatNumber(lineTotal);
         grandTotal += lineTotal;
+
+        if (qty > 0 && deliveryDays) {
+          const deliveryDate = new Date(orderDate);
+          deliveryDate.setDate(orderDate.getDate() + deliveryDays);
+          row.querySelector('.deliveryDate').textContent = deliveryDate.toISOString().split('T')[0];
+        } else {
+          row.querySelector('.deliveryDate').textContent = 'N/A';
+        }
       });
       document.getElementById('grandTotal').textContent = formatNumber(grandTotal);
-      calculateDeliveryDate();
-    }
-
-    function calculateDeliveryDate() {
-      const orderDate = new Date(document.getElementById('orderDate').value);
-      const deliveryDate = new Date(orderDate);
-      deliveryDate.setDate(orderDate.getDate() + deliveryDaysMax);
-      document.getElementById('deliveryDate').textContent = deliveryDate.toISOString().split('T')[0];
     }
 
     function sendOrderConfirmation() {
       const email = document.getElementById('email').value;
       const total = document.getElementById('grandTotal').textContent;
       const orderDate = document.getElementById('orderDate').value;
-      const deliveryDate = document.getElementById('deliveryDate').textContent;
 
       if (!email) {
         alert('Please enter your email address.');
         return;
       }
 
-      const mailtoLink = `mailto:${email}?subject=Order Confirmation&body=Thank you for your order!%0D%0A%0D%0AOrder Date: ${orderDate}%0D%0AExpected Delivery Date: ${deliveryDate}%0D%0AGrand Total: €${total}`;
+      let body = `Thank you for your order!%0D%0AOrder Date: ${orderDate}%0D%0A%0D%0AOrder Details:%0D%0A`;
+      document.querySelectorAll('#orderTable tbody tr').forEach(row => {
+        const product = row.querySelector('select')?.selectedOptions[0].textContent;
+        const code = row.querySelector('.code').textContent;
+        const qty = row.querySelector('.qtyInput')?.value;
+        const total = row.querySelector('.lineTotal').textContent;
+        const deliveryDate = row.querySelector('.deliveryDate').textContent;
+        if (qty > 0) {
+          body += `Product: ${product} (${code}) | Quantity: ${qty} kg | Total: €${total} | Delivery Date: ${deliveryDate}%0D%0A`;
+        }
+      });
+
+      body += `%0D%0AGrand Total: €${total}`;
+      const mailtoLink = `mailto:${email}?subject=Order Confirmation&body=${body}`;
       window.location.href = mailtoLink;
     }
   </script>
 </body>
 </html>
-
