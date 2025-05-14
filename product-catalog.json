@@ -7,7 +7,7 @@
         "Cur": "EUR",
         "Unit": "kg",
         "Delivery Days": 10
-    },
+    }
     {
         "Product Name": "TDI",
         "Product Code": "578520",
@@ -16,7 +16,7 @@
         "Cur": "EUR",
         "Unit": "kg",
         "Delivery Days": 7
-    },
+    }
     {
         "Product Name": "PET",
         "Product Code": "123997",
@@ -25,7 +25,7 @@
         "Cur": "EUR",
         "Unit": "kg",
         "Delivery Days": 4
-    },
+    }
     {
         "Product Name": "PCS",
         "Product Code": "4487965",
@@ -34,7 +34,7 @@
         "Cur": "EUR",
         "Unit": "kg",
         "Delivery Days": 6
-    },
+    }
     {
         "Product Name": "Baypren",
         "Product Code": "C12534",
@@ -43,7 +43,7 @@
         "Cur": "EUR",
         "Unit": "kg",
         "Delivery Days": 8
-    },
+    }
     {
         "Product Name": "Baytec",
         "Product Code": "C6699875",
@@ -52,7 +52,7 @@
         "Cur": "EUR",
         "Unit": "kg",
         "Delivery Days: 4
-    },
+    }
     {
         "Product Name": "Bayfill",
         "Product Code": "C1245397",
@@ -61,7 +61,7 @@
         "Cur": "EUR",
         "Unit": "kg",
         "Delivery Days": 14
-    },
+    }
     {
         "Product Name": "Baydur",
         "Product Code": "C787541",
@@ -70,7 +70,7 @@
         "Cur": "EUR",
         "Unit": "kg",
         "Delivery Days": 11
-    },
+    }
     {
         "Product Name": null,
         "Product Code": null,
