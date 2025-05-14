@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Order Entry</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    input[type='number'] {
+      width: 100px;
+    }
+    .total {
+      font-weight: bold;
+      text-align: right;
+      margin-top: 10px;
+    }
+    .form-section {
+      margin: 20px 0;
+    }
+    .form-section input {
+      padding: 5px;
+      margin-right: 10px;
+    }
+    .order-summary {
+      margin-top: 20px;
+    }
+    .order-button {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Customer Order Entry</h2>
+
+  <div class="form-section">
+    <label for="email">Customer Email:</label>
+    <input type="email" id="email" placeholder="Enter your email">
+
+    <label for="orderDate">Order Date:</label>
+    <input type="date" id="orderDate">
+  </div>
+
+  <input type="file" id="fileUpload" accept=".xlsx, .xls" />
+
+  <div id="orderTableContainer"></div>
+  <div class="total">Grand Total (EUR): €<span id="grandTotal">0.00</span></div>
+
+  <div class="order-summary">
+    <p><strong>Expected Delivery Date:</strong> <span id="deliveryDate">N/A</span></p>
+  </div>
+
+  <div class="order-button">
+    <button onclick="sendOrderConfirmation()">Order Now</button>
+  </div>
+
+  <script>
+    document.getElementById('fileUpload').addEventListener('change', handleFile, false);
+    document.getElementById('orderDate').valueAsDate = new Date();
+
+    let deliveryDaysMax = 0;
+
+    function handleFile(e) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+        const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+        generateTable(jsonData);
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function generateTable(products) {
+      let tableHTML = '<table><thead><tr><th>Product</th><th>Code</th><th>Price (EUR/kg)</th><th>Unit</th><th>Delivery Days</th><th>Quantity (kg)</th><th style="text-align:right;">Total (EUR)</th></tr></thead><tbody>';
+      products.forEach((item, index) => {
+        tableHTML += `<tr>
+          <td>${item['Product Name']}</td>
+          <td>${item['Product Code']}</td>
+          <td>€<span class="price">${item['Price']}</span></td>
+          <td>${item['Unit']}</td>
+          <td class="delivery">${item['Delivery Days']}</td>
+          <td><input type="number" min="0" data-index="${index}" class="qtyInput" placeholder="kg"></td>
+          <td style="text-align:right;">€<span class="lineTotal">0.00</span></td>
+        </tr>`;
+      });
+      tableHTML += '</tbody></table>';
+      document.getElementById('orderTableContainer').innerHTML = tableHTML;
+
+      document.querySelectorAll('.qtyInput').forEach(input => {
+        input.addEventListener('input', updateTotals);
+      });
+    }
+
+    function formatNumber(num) {
+      return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function updateTotals() {
+      let grandTotal = 0;
+      deliveryDaysMax = 0;
+      document.querySelectorAll('tbody tr').forEach(row => {
+        const price = parseFloat(row.querySelector('.price').textContent);
+        const qty = parseFloat(row.querySelector('.qtyInput').value || 0);
+        const deliveryDays = parseInt(row.querySelector('.delivery').textContent || 0);
+        if (qty > 0 && deliveryDays > deliveryDaysMax) {
+          deliveryDaysMax = deliveryDays;
+        }
+        const lineTotal = price * qty;
+        row.querySelector('.lineTotal').textContent = formatNumber(lineTotal);
+        grandTotal += lineTotal;
+      });
+      document.getElementById('grandTotal').textContent = formatNumber(grandTotal);
+      calculateDeliveryDate();
+    }
+
+    function calculateDeliveryDate() {
+      const orderDate = new Date(document.getElementById('orderDate').value);
+      const deliveryDate = new Date(orderDate);
+      deliveryDate.setDate(orderDate.getDate() + deliveryDaysMax);
+      document.getElementById('deliveryDate').textContent = deliveryDate.toISOString().split('T')[0];
+    }
+
+    function sendOrderConfirmation() {
+      const email = document.getElementById('email').value;
+      const total = document.getElementById('grandTotal').textContent;
+      const orderDate = document.getElementById('orderDate').value;
+      const deliveryDate = document.getElementById('deliveryDate').textContent;
+
+      if (!email) {
+        alert('Please enter your email address.');
+        return;
+      }
+
+      const mailtoLink = `mailto:${email}?subject=Order Confirmation&body=Thank you for your order!%0D%0A%0D%0AOrder Date: ${orderDate}%0D%0AExpected Delivery Date: ${deliveryDate}%0D%0AGrand Total: €${total}`;
+      window.location.href = mailtoLink;
+    }
+  </script>
+</body>
+</html>
+
