@@ -1,74 +1,74 @@
 [
-    {
-        "Product Name": "MDI",
-        "Product Code": "4201338",
-        "Price": 1.87,
-        "Packaging": "Tank truck",
-        "Cur": "EUR",
-        "Unit": "kg",
-        "Delivery Days": 10
-    }
-    {
-        "Product Name": "TDI",
-        "Product Code": "578520",
-        "Price": 1.73,
-        "Packaging": "Tank truck",
-        "Cur": "EUR",
-        "Unit": "kg",
-        "Delivery Days": 7
-    }
-    {
-        "Product Name": "PET",
-        "Product Code": "123997",
-        "Price": 1.53,
-        "Packaging": "Tank truck",
-        "Cur": "EUR",
-        "Unit": "kg",
-        "Delivery Days": 4
-    }
-    {
-        "Product Name": "PCS",
-        "Product Code": "4487965",
-        "Price": 2.22,
-        "Packaging": "Big bag",
-        "Cur": "EUR",
-        "Unit": "kg",
-        "Delivery Days": 6
-    }
-    {
-        "Product Name": "Baypren",
-        "Product Code": "C12534",
-        "Price": 2.45,
-        "Packaging": "IBC",
-        "Cur": "EUR",
-        "Unit": "kg",
-        "Delivery Days": 8
-    }
-    {
-        "Product Name": "Baytec",
-        "Product Code": "C6699875",
-        "Price": 3.55,
-        "Packaging": "IBC",
-        "Cur": "EUR",
-        "Unit": "kg",
-        "Delivery Days: 4
-    }
-    {
-        "Product Name": "Bayfill",
-        "Product Code": "C1245397",
-        "Price": 3.12,
-        "Packaging": "Drum",
-        "Cur": "EUR",
-        "Unit": "kg",
-        "Delivery Days": 14
-    }
-    {
-        "Product Name": "Baydur",
-        "Product Code": "C787541",
-        "Price": 2.94,
-        "Packaging": "Drum",
-        "Cur": "EUR",
-        "Unit": "kg",
-        "Delivery Days": 11
-     }
+  {
+    "Product Name": "MDI",
+    "Product Code": "4201338",
+    "Price": 1.87,
+    "Packaging": "Tank truck",
+    "Cur": "EUR",
+    "Unit": "kg",
+    "Delivery Days": 10
+  },
+  {
+    "Product Name": "TDI",
+    "Product Code": "578520",
+    "Price": 1.73,
+    "Packaging": "Tank truck",
+    "Cur": "EUR",
+    "Unit": "kg",
+    "Delivery Days": 7
+  },
+  {
+    "Product Name": "PET",
+    "Product Code": "123997",
+    "Price": 1.53,
+    "Packaging": "Tank truck",
+    "Cur": "EUR",
+    "Unit": "kg",
+    "Delivery Days": 4
+  },
+  {
+    "Product Name": "PCS",
+    "Product Code": "4487965",
+    "Price": 2.22,
+    "Packaging": "Big bag",
+    "Cur": "EUR",
+    "Unit": "kg",
+    "Delivery Days": 6
+  },
+  {
+    "Product Name": "Baypren",
+    "Product Code": "C12534",
+    "Price": 2.45,
+    "Packaging": "IBC",
+    "Cur": "EUR",
+    "Unit": "kg",
+    "Delivery Days": 8
+  },
+  {
+    "Product Name": "Baytec",
+    "Product Code": "C6699875",
+    "Price": 3.55,
+    "Packaging": "IBC",
+    "Cur": "EUR",
+    "Unit": "kg",
+    "Delivery Days": 4
+  },
+  {
+    "Product Name": "Bayfill",
+    "Product Code": "C1245397",
+    "Price": 3.12,
+    "Packaging": "Drum",
+    "Cur": "EUR",
+    "Unit": "kg",
+    "Delivery Days": 14
+  },
+  {
+    "Product Name": "Baydur",
+    "Product Code": "C787541",
+    "Price": 2.94,
+    "Packaging": "Drum",
+    "Cur": "EUR",
+    "Unit": "kg",
+    "Delivery Days": 11
+  }
 ]
