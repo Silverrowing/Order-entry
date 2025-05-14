@@ -1,47 +1,47 @@
 [
     {
         "Country": "Austria",
-        "VAT (%) ": "20% ",
+        "VAT (%) ": 20,
         "null": null
     },
     {
         "Country": "Belgium",
-        "VAT (%) ": "21% ",
+        "VAT (%) ": 21,
         "null": null
     },
     {
         "Country": "Bulgaria",
-        "VAT (%) ": "20% ",
+        "VAT (%) ": 20,
         "null": null
     },
     {
         "Country": "Croatia",
-        "VAT (%) ": "25% ",
+        "VAT (%) ": 25,
         "null": null
     },
     {
         "Country": "Cyprus",
-        "VAT (%) ": "19% ",
+        "VAT (%) ": 19,
         "null": null
     },
     {
         "Country": "Czech Republic",
-        "VAT (%) ": "21% ",
+        "VAT (%) ": 21,
         "null": null
     },
     {
         "Country": "Denmark",
-        "VAT (%) ": "25% ",
+        "VAT (%) ": 25,
         "null": null
     },
     {
         "Country": "Estonia",
-        "VAT (%) ": "22% ",
+        "VAT (%) ": 22,
         "null": null
     },
     {
         "Country": "Finland",
-        "VAT (%) ": "25.50% ",
+        "VAT (%) ": 25.50 ",
         "null": null
     }
 ]
