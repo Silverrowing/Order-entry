@@ -70,14 +70,5 @@
         "Cur": "EUR",
         "Unit": "kg",
         "Delivery Days": 11
-    }
-    {
-        "Product Name": null,
-        "Product Code": null,
-        "Price": null,
-        "Packaging": null,
-        "Cur": null,
-        "Unit": null,
-        "Delivery Days ": null
-    }
+     }
 ]
