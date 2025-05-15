@@ -1,29 +1,110 @@
 [
-  { "country": "Austria", "vatRate": 20 },
-  { "country": "Belgium", "vatRate": 21 },
-  { "country": "Bulgaria", "vatRate": 20 },
-  { "country": "Croatia", "vatRate": 25 },
-  { "country": "Cyprus", "vatRate": 19 },
-  { "country": "Czech Republic", "vatRate": 21 },
-  { "country": "Denmark", "vatRate": 25 },
-  { "country": "Estonia", "vatRate": 22 },
-  { "country": "Finland", "vatRate": 25.5 },
-  { "country": "France", "vatRate": 20 },
-  { "country": "Germany", "vatRate": 19 },
-  { "country": "Greece", "vatRate": 24 },
-  { "country": "Hungary", "vatRate": 27 },
-  { "country": "Ireland", "vatRate": 23 },
-  { "country": "Italy", "vatRate": 22 },
-  { "country": "Latvia", "vatRate": 21 },
-  { "country": "Lithuania", "vatRate": 21 },
-  { "country": "Luxembourg", "vatRate": 17 },
-  { "country": "Malta", "vatRate": 18 },
-  { "country": "Netherlands", "vatRate": 21 },
-  { "country": "Poland", "vatRate": 23 },
-  { "country": "Portugal", "vatRate": 23 },
-  { "country": "Romania", "vatRate": 19 },
-  { "country": "Slovakia", "vatRate": 20 },
-  { "country": "Slovenia", "vatRate": 22 },
-  { "country": "Spain", "vatRate": 21 },
-  { "country": "Sweden", "vatRate": 25 }
+  {
+    "Country": "Austria",
+    "VAT (%)": 0.2
+  },
+  {
+    "Country": "Belgium",
+    "VAT (%)": 0.21
+  },
+  {
+    "Country": "Bulgaria",
+    "VAT (%)": 0.2
+  },
+  {
+    "Country": "Croatia",
+    "VAT (%)": 0.25
+  },
+  {
+    "Country": "Cyprus",
+    "VAT (%)": 0.19
+  },
+  {
+    "Country": "Czech Republic",
+    "VAT (%)": 0.21
+  },
+  {
+    "Country": "Denmark",
+    "VAT (%)": 0.25
+  },
+  {
+    "Country": "Estonia",
+    "VAT (%)": 0.22
+  },
+  {
+    "Country": "Finland",
+    "VAT (%)": 0.255
+  },
+  {
+    "Country": "France",
+    "VAT (%)": 0.2
+  },
+  {
+    "Country": "Germany",
+    "VAT (%)": 0.19
+  },
+  {
+    "Country": "Greece",
+    "VAT (%)": 0.24
+  },
+  {
+    "Country": "Hungary",
+    "VAT (%)": 0.27
+  },
+  {
+    "Country": "Ireland",
+    "VAT (%)": 0.23
+  },
+  {
+    "Country": "Italy",
+    "VAT (%)": 0.22
+  },
+  {
+    "Country": "Latvia",
+    "VAT (%)": 0.21
+  },
+  {
+    "Country": "Lithuania",
+    "VAT (%)": 0.21
+  },
+  {
+    "Country": "Luxembourg",
+    "VAT (%)": 0.17
+  },
+  {
+    "Country": "Malta",
+    "VAT (%)": 0.18
+  },
+  {
+    "Country": "Netherlands",
+    "VAT (%)": 0.21
+  },
+  {
+    "Country": "Poland",
+    "VAT (%)": 0.23
+  },
+  {
+    "Country": "Portugal",
+    "VAT (%)": 0.23
+  },
+  {
+    "Country": "Romania",
+    "VAT (%)": 0.19
+  },
+  {
+    "Country": "Slovakia",
+    "VAT (%)": 0.2
+  },
+  {
+    "Country": "Slovenia",
+    "VAT (%)": 0.22
+  },
+  {
+    "Country": "Spain",
+    "VAT (%)": 0.21
+  },
+  {
+    "Country": "Sweden",
+    "VAT (%)": 0.25
+  }
 ]
