@@ -187,13 +187,13 @@
       vatRate = vatEntry ? vatEntry.vatRate : 0;
 }
 
-const normalizedRate = vatRate > 1 ? vatRate / 100 : vatRate;
-const vatAmount = subtotal * normalizedRate;
-const grandTotal = subtotal + vatAmount;
+    const normalizedRate = vatRate > 1 ? vatRate / 100 : vatRate;
+    const vatAmount = subtotal * normalizedRate;
+    const grandTotal = subtotal + vatAmount;
 
-document.getElementById('vatRate').textContent = `${(normalizedRate * 100).toFixed(2)}%`;
-document.getElementById('vatAmount').textContent = formatNumber(vatAmount);
-document.getElementById('grandTotal').textContent = formatNumber(grandTotal);
+    document.getElementById('vatRate').textContent = `${(normalizedRate * 100).toFixed(2)}%`;
+    document.getElementById('vatAmount').textContent = formatNumber(vatAmount);
+    document.getElementById('grandTotal').textContent = formatNumber(grandTotal);
 
     }
 
