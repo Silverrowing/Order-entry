@@ -181,19 +181,20 @@
       });
 
     let vatRate = 0;
-    if (currentCustomer) {
-      const customerCountry = currentCustomer["Country"];
-      const vatEntry = vatData.find(v => v.country.toLowerCase() === customerCountry.toLowerCase());
-      vatRate = vatEntry ? vatEntry.vatRate : 0;
+if (currentCustomer) {
+  const customerCountry = currentCustomer["Country"];
+  const vatEntry = vatData.find(v => v.country.toLowerCase() === customerCountry.toLowerCase());
+  vatRate = vatEntry ? vatEntry["VAT (%)"] : 0;
 }
 
-    const normalizedRate = vatRate > 1 ? vatRate / 100 : vatRate;
-    const vatAmount = subtotal * normalizedRate;
-    const grandTotal = subtotal + vatAmount;
+const normalizedRate = vatRate > 1 ? vatRate / 100 : vatRate;
+const vatAmount = subtotal * normalizedRate;
+const grandTotal = subtotal + vatAmount;
 
-    document.getElementById('vatRate').textContent = `${(normalizedRate * 100).toFixed(2)}%`;
-    document.getElementById('vatAmount').textContent = formatNumber(vatAmount);
-    document.getElementById('grandTotal').textContent = formatNumber(grandTotal);
+document.getElementById('vatRate').textContent = `${(normalizedRate * 100).toFixed(2)}%`;
+document.getElementById('vatAmount').textContent = formatNumber(vatAmount);
+document.getElementById('grandTotal').textContent = formatNumber(grandTotal);
+
 
     }
 
