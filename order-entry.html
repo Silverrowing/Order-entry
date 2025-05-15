@@ -111,7 +111,7 @@
       if (currentCustomer) {
         container.innerHTML = `
           <strong>Customer:</strong> ${currentCustomer["Customer name"]}<br>
-          ${currentCustomer["Street"]} ${currentCustomer["Street nr"]}, ${currentCustomer["Postal code"]} ${currentCustomer["Town"]}, ${currentCustomer["country"]}<br>
+          ${currentCustomer["Street"]} ${currentCustomer["Street nr"]}, ${currentCustomer["Postal code"]} ${currentCustomer["Town"]}, ${currentCustomer["Country"]}<br>
           VAT: ${currentCustomer["VAT number"]}<br>
           IBAN: ${currentCustomer["IBAN"]}
         `;
@@ -182,7 +182,7 @@
 
       let vatRate = 0;
       if (currentCustomer) {
-        const vatEntry = vatData.find(v => v.country.toLowerCase() === currentCustomer["country"].toLowerCase());
+        const vatEntry = vatData.find(v => v.country.toLowerCase() === currentCustomer["Country"].toLowerCase());
         vatRate = vatEntry ? vatEntry.vatRate : 0;
       }
 
