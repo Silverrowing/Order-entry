@@ -183,8 +183,10 @@
     let vatRate = 0;
 if (currentCustomer) {
   const customerCountry = currentCustomer["Country"];
-  const vatEntry = vatData.find(v => v.country.toLowerCase() === customerCountry.toLowerCase());
-  vatRate = vatEntry ? vatEntry["VAT (%)"] : 0;
+  const vatEntry = vatData.find(v => 
+    v.country?.toLowerCase().trim() === customerCountry.toLowerCase().trim()
+  );
+  vatRate = vatEntry && vatEntry["VAT (%)"] !== undefined ? parseFloat(vatEntry["VAT (%)"]) : 0;
 }
 
 const normalizedRate = vatRate > 1 ? vatRate / 100 : vatRate;
