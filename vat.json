@@ -2,111 +2,111 @@
   "Sheet1": [
     {
       "Country": "Austria",
-      "VAT (%)": 20
+      "vatRate": 20
     },
     {
       "Country": "Belgium",
-      "VAT (%)": 21
+      "vatRate": 21
     },
     {
       "Country": "Bulgaria",
-      "VAT (%)": 20
+      "vatRate": 20
     },
     {
       "Country": "Croatia",
-      "VAT (%)": 25
+      "vatRate": 25
     },
     {
       "Country": "Cyprus",
-      "VAT (%)": 19
+      "vatRate": 19
     },
     {
       "Country": "Czech Republic",
-      "VAT (%)": 21
+      "vatRate": 21
     },
     {
       "Country": "Denmark",
-      "VAT (%)": 25
+      "vatRate": 25
     },
     {
       "Country": "Estonia",
-      "VAT (%)": 22
+      "vatRate": 22
     },
     {
       "Country": "Finland",
-      "VAT (%)": 25.50
+      "vatRate": 25.50
     },
     {
       "Country": "France",
-      "VAT (%)": 20
+      "vatRate": 20
     },
     {
       "Country": "Germany",
-      "VAT (%)": 19
+      "vatRate": 19
     },
     {
       "Country": "Greece",
-      "VAT (%)": 24
+      "vatRate": 24
     },
     {
       "Country": "Hungary",
-      "VAT (%)": 27
+      "vatRate": "27%"
     },
     {
       "Country": "Ireland",
-      "VAT (%)": 23
+      "vatRate": 23
     },
     {
       "Country": "Italy",
-      "VAT (%)": 22
+      "vatRate": 22
     },
     {
       "Country": "Latvia",
-      "VAT (%)": 21
+      "vatRate": 21
     },
     {
       "Country": "Lithuania",
-      "VAT (%)": 21
+      "vatRate": 21
     },
     {
       "Country": "Luxembourg",
-      "VAT (%)": 17
+      "vatRate": 17
     },
     {
       "Country": "Malta",
-      "VAT (%)": 18
+      "vatRate": 18
     },
     {
       "Country": "Netherlands",
-      "VAT (%)": 21
+      "vatRate": 21
     },
     {
       "Country": "Poland",
-      "VAT (%)": 23
+      "vatRate": 23
     },
     {
       "Country": "Portugal",
-      "VAT (%)": 23
+      "vatRate": 23
     },
     {
       "Country": "Romania",
-      "VAT (%)": 19
+      "vatRate": 19
     },
     {
       "Country": "Slovakia",
-      "VAT (%)": 20
+      "vatRate": 20
     },
     {
       "Country": "Slovenia",
-      "VAT (%)": 22
+      "vatRate": 22
     },
     {
       "Country": "Spain",
-      "VAT (%)": 21
+      "vatRate": 21
     },
     {
       "Country": "Sweden",
-      "VAT (%)": 25
+      "vatRate": 25
     }
   ]
 }
