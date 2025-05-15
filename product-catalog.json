@@ -2,7 +2,7 @@
   {
     "Product Name": "MDI",
     "Product Code": 4201338,
-    "Price": 1.87,
+    "Price": 1.77,
     "Packaging": "Tank truck",
     "Cur": "EUR",
     "Unit": "kg",
@@ -11,7 +11,7 @@
   {
     "Product Name": "TDI",
     "Product Code": 578520,
-    "Price": 1.73,
+    "Price": 1.63,
     "Packaging": "Tank truck",
     "Cur": "EUR",
     "Unit": "kg",
@@ -20,7 +20,7 @@
   {
     "Product Name": "PET",
     "Product Code": 123997,
-    "Price": 1.53,
+    "Price": 1.33,
     "Packaging": "Tank truck",
     "Cur": "EUR",
     "Unit": "kg",
@@ -29,7 +29,7 @@
   {
     "Product Name": "PCS",
     "Product Code": 4487965,
-    "Price": 2.22,
+    "Price": 1.85,
     "Packaging": "Big bag",
     "Cur": "EUR",
     "Unit": "kg",
@@ -38,7 +38,7 @@
   {
     "Product Name": "COVpren",
     "Product Code": "C12534",
-    "Price": 2.45,
+    "Price": 2.66,
     "Packaging": "IBC",
     "Cur": "EUR",
     "Unit": "kg",
@@ -47,7 +47,7 @@
   {
     "Product Name": "COVtec",
     "Product Code": "C6699875",
-    "Price": 3.55,
+    "Price": 2.99,
     "Packaging": "IBC",
     "Cur": "EUR",
     "Unit": "kg",
@@ -56,7 +56,7 @@
   {
     "Product Name": "COVfill",
     "Product Code": "C1245397",
-    "Price": 3.12,
+    "Price": 2.44,
     "Packaging": "Drum",
     "Cur": "EUR",
     "Unit": "kg",
@@ -65,7 +65,7 @@
   {
     "Product Name": "COVdur",
     "Product Code": "C787541",
-    "Price": 2.94,
+    "Price": 2.69,
     "Packaging": "Drum",
     "Cur": "EUR",
     "Unit": "kg",
