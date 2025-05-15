@@ -1,110 +1,110 @@
 [
   {
-    "Country": "Austria",
+    "country": "Austria",
     "VAT (%)": 0.2
   },
   {
-    "Country": "Belgium",
+    "country": "Belgium",
     "VAT (%)": 0.21
   },
   {
-    "Country": "Bulgaria",
+    "country": "Bulgaria",
     "VAT (%)": 0.2
   },
   {
-    "Country": "Croatia",
+    "country": "Croatia",
     "VAT (%)": 0.25
   },
   {
-    "Country": "Cyprus",
+    "country": "Cyprus",
     "VAT (%)": 0.19
   },
   {
-    "Country": "Czech Republic",
+    "country": "Czech Republic",
     "VAT (%)": 0.21
   },
   {
-    "Country": "Denmark",
+    "country": "Denmark",
     "VAT (%)": 0.25
   },
   {
-    "Country": "Estonia",
+    "country": "Estonia",
     "VAT (%)": 0.22
   },
   {
-    "Country": "Finland",
+    "country": "Finland",
     "VAT (%)": 0.255
   },
   {
-    "Country": "France",
+    "country": "France",
     "VAT (%)": 0.2
   },
   {
-    "Country": "Germany",
+    "country": "Germany",
     "VAT (%)": 0.19
   },
   {
-    "Country": "Greece",
+    "country": "Greece",
     "VAT (%)": 0.24
   },
   {
-    "Country": "Hungary",
+    "country": "Hungary",
     "VAT (%)": 0.27
   },
   {
-    "Country": "Ireland",
+    "country": "Ireland",
     "VAT (%)": 0.23
   },
   {
-    "Country": "Italy",
+    "country": "Italy",
     "VAT (%)": 0.22
   },
   {
-    "Country": "Latvia",
+    "country": "Latvia",
     "VAT (%)": 0.21
   },
   {
-    "Country": "Lithuania",
+    "country": "Lithuania",
     "VAT (%)": 0.21
   },
   {
-    "Country": "Luxembourg",
+    "country": "Luxembourg",
     "VAT (%)": 0.17
   },
   {
-    "Country": "Malta",
+    "country": "Malta",
     "VAT (%)": 0.18
   },
   {
-    "Country": "Netherlands",
+    "country": "Netherlands",
     "VAT (%)": 0.21
   },
   {
-    "Country": "Poland",
+    "country": "Poland",
     "VAT (%)": 0.23
   },
   {
-    "Country": "Portugal",
+    "country": "Portugal",
     "VAT (%)": 0.23
   },
   {
-    "Country": "Romania",
+    "country": "Romania",
     "VAT (%)": 0.19
   },
   {
-    "Country": "Slovakia",
+    "country": "Slovakia",
     "VAT (%)": 0.2
   },
   {
-    "Country": "Slovenia",
+    "country": "Slovenia",
     "VAT (%)": 0.22
   },
   {
-    "Country": "Spain",
+    "country": "Spain",
     "VAT (%)": 0.21
   },
   {
-    "Country": "Sweden",
+    "country": "Sweden",
     "VAT (%)": 0.25
   }
 ]
