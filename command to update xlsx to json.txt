@@ -1,2 +1,0 @@
-cmd
-cd C:\Users\mplaa\OneDrive\Dokumente\GitHub\Order-entry
