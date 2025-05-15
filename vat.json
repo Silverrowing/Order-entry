@@ -9,7 +9,7 @@
   { "country": "Estonia", "vatRate": 22 },
   { "country": "Finland", "vatRate": 25.5 },
   { "country": "France", "vatRate": 20 },
-  { "country": "Germany", "vatRate": 19 },
+  { "Country": "Germany", "vatRate": 19 },
   { "country": "Greece", "vatRate": 24 },
   { "country": "Hungary", "vatRate": 27 },
   { "country": "Ireland", "vatRate": 23 },
