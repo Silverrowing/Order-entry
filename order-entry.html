@@ -180,10 +180,21 @@
         }
       });
 
-      let vatRate = 0;
-      if (currentCustomer) {
-        const vatEntry = vatData.find(v => v.country.toLowerCase() === currentCustomer["Country"].toLowerCase());
-        vatRate = vatEntry ? vatEntry.vatRate : 0;
+let vatRate = 0;
+if (currentCustomer) {
+  const customerCountry = currentCustomer["Country"];
+  console.log("Looking for VAT rate for:", customerCountry);
+  console.log("Available VAT entries:", vatData);
+
+  const vatEntry = vatData.find(v => {
+    console.log("Comparing:", v.country.toLowerCase(), "vs", customerCountry.toLowerCase());
+    return v.country.toLowerCase() === customerCountry.toLowerCase();
+  });
+
+  console.log("Matched VAT entry:", vatEntry);
+  vatRate = vatEntry ? vatEntry.vatRate : 0;
+}
+
       }
 
       const vatAmount = subtotal * (vatRate / 100);
