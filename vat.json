@@ -1,112 +1,29 @@
-{
-  "Sheet1": [
-    {
-      "Country": "Austria",
-      "vatRate": 20
-    },
-    {
-      "Country": "Belgium",
-      "vatRate": 21
-    },
-    {
-      "Country": "Bulgaria",
-      "vatRate": 20
-    },
-    {
-      "Country": "Croatia",
-      "vatRate": 25
-    },
-    {
-      "Country": "Cyprus",
-      "vatRate": 19
-    },
-    {
-      "Country": "Czech Republic",
-      "vatRate": 21
-    },
-    {
-      "Country": "Denmark",
-      "vatRate": 25
-    },
-    {
-      "Country": "Estonia",
-      "vatRate": 22
-    },
-    {
-      "Country": "Finland",
-      "vatRate": 25.50
-    },
-    {
-      "Country": "France",
-      "vatRate": 20
-    },
-    {
-      "Country": "Germany",
-      "vatRate": 19
-    },
-    {
-      "Country": "Greece",
-      "vatRate": 24
-    },
-    {
-      "Country": "Hungary",
-      "vatRate": "27%"
-    },
-    {
-      "Country": "Ireland",
-      "vatRate": 23
-    },
-    {
-      "Country": "Italy",
-      "vatRate": 22
-    },
-    {
-      "Country": "Latvia",
-      "vatRate": 21
-    },
-    {
-      "Country": "Lithuania",
-      "vatRate": 21
-    },
-    {
-      "Country": "Luxembourg",
-      "vatRate": 17
-    },
-    {
-      "Country": "Malta",
-      "vatRate": 18
-    },
-    {
-      "Country": "Netherlands",
-      "vatRate": 21
-    },
-    {
-      "Country": "Poland",
-      "vatRate": 23
-    },
-    {
-      "Country": "Portugal",
-      "vatRate": 23
-    },
-    {
-      "Country": "Romania",
-      "vatRate": 19
-    },
-    {
-      "Country": "Slovakia",
-      "vatRate": 20
-    },
-    {
-      "Country": "Slovenia",
-      "vatRate": 22
-    },
-    {
-      "Country": "Spain",
-      "vatRate": 21
-    },
-    {
-      "Country": "Sweden",
-      "vatRate": 25
-    }
-  ]
-}
+[
+  { "country": "Austria", "vatRate": 20 },
+  { "country": "Belgium", "vatRate": 21 },
+  { "country": "Bulgaria", "vatRate": 20 },
+  { "country": "Croatia", "vatRate": 25 },
+  { "country": "Cyprus", "vatRate": 19 },
+  { "country": "Czech Republic", "vatRate": 21 },
+  { "country": "Denmark", "vatRate": 25 },
+  { "country": "Estonia", "vatRate": 22 },
+  { "country": "Finland", "vatRate": 25.5 },
+  { "country": "France", "vatRate": 20 },
+  { "country": "Germany", "vatRate": 19 },
+  { "country": "Greece", "vatRate": 24 },
+  { "country": "Hungary", "vatRate": 27 },
+  { "country": "Ireland", "vatRate": 23 },
+  { "country": "Italy", "vatRate": 22 },
+  { "country": "Latvia", "vatRate": 21 },
+  { "country": "Lithuania", "vatRate": 21 },
+  { "country": "Luxembourg", "vatRate": 17 },
+  { "country": "Malta", "vatRate": 18 },
+  { "country": "Netherlands", "vatRate": 21 },
+  { "country": "Poland", "vatRate": 23 },
+  { "country": "Portugal", "vatRate": 23 },
+  { "country": "Romania", "vatRate": 19 },
+  { "country": "Slovakia", "vatRate": 20 },
+  { "country": "Slovenia", "vatRate": 22 },
+  { "country": "Spain", "vatRate": 21 },
+  { "country": "Sweden", "vatRate": 25 }
+]
