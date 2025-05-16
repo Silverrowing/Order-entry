@@ -29,10 +29,15 @@
       width: 100%;
       box-sizing: border-box;
     }
-    .save-button {
+    .button-row {
       margin-top: 20px;
+      display: flex;
+      gap: 20px;
+    }
+    .button-row button {
       padding: 10px 20px;
       font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -58,7 +63,10 @@
     <tbody></tbody>
   </table>
 
-  <button class="save-button" onclick="saveCustomerData()">Save Changes</button>
+  <div class="button-row">
+    <button onclick="saveCustomerData()">Save Changes</button>
+    <button onclick="window.location.href='index.html'">Back to Landing Page</button>
+  </div>
 
   <script>
     let customerData = [];
