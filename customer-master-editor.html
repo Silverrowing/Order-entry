@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Customer Master</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #e0e0e0;
+    }
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .save-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Customer Master Editor</h2>
+  <table id="customerTable">
+    <thead>
+      <tr>
+        <th>Customer ID</th>
+        <th>Name</th>
+        <th>Street</th>
+        <th>Street Nr</th>
+        <th>Postal Code</th>
+        <th>Town</th>
+        <th>State</th>
+        <th>Country</th>
+        <th>VAT Number</th>
+        <th>IBAN</th>
+        <th>Phone</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <button class="save-button" onclick="saveCustomerData()">Save Changes</button>
+
+  <script>
+    let customerData = [];
+
+    fetch('customer-master.json')
+      .then(res => res.json())
+      .then(data => {
+        customerData = data;
+        renderTable();
+      });
+
+    function renderTable() {
+      const tbody = document.querySelector('#customerTable tbody');
+      tbody.innerHTML = '';
+
+      customerData.forEach((customer, index) => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td><input type="text" value="${customer["Customer ID"]}" disabled></td>
+          <td><input type="text" value="${customer["Customer name"]}" onchange="updateField(${index}, 'Customer name', this.value)"></td>
+          <td><input type="text" value="${customer["Street"]}" onchange="updateField(${index}, 'Street', this.value)"></td>
+          <td><input type="text" value="${customer["Street nr"]}" onchange="updateField(${index}, 'Street nr', this.value)"></td>
+          <td><input type="text" value="${customer["Postal code"]}" onchange="updateField(${index}, 'Postal code', this.value)"></td>
+          <td><input type="text" value="${customer["Town"]}" onchange="updateField(${index}, 'Town', this.value)"></td>
+          <td><input type="text" value="${customer["State/Region"]}" onchange="updateField(${index}, 'State/Region', this.value)"></td>
+          <td><input type="text" value="${customer["Country"]}" onchange="updateField(${index}, 'Country', this.value)"></td>
+          <td><input type="text" value="${customer["VAT number"]}" onchange="updateField(${index}, 'VAT number', this.value)"></td>
+          <td><input type="text" value="${customer["IBAN"]}" onchange="updateField(${index}, 'IBAN', this.value)"></td>
+          <td><input type="text" value="${customer["Phone"]}" onchange="updateField(${index}, 'Phone', this.value)"></td>
+          <td><input type="text" value="${customer["Email"]}" onchange="updateField(${index}, 'Email', this.value)"></td>
+        `;
+
+        tbody.appendChild(row);
+      });
+    }
+
+    function updateField(index, field, value) {
+      customerData[index][field] = value;
+    }
+
+    function saveCustomerData() {
+      const json = JSON.stringify(customerData, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'customer-master.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
