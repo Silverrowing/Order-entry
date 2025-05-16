@@ -103,7 +103,8 @@
   <div class="total">Grand Total incl. VAT (EUR): €<span id="grandTotal">0.00</span></div>
 
   <div class="order-button">
-    <button onclick="sendOrderConfirmation()">Order Now</button>
+     <button onclick="sendOrderConfirmation()">Order Now</button>
+     <button onclick="window.location.href='index.html'">← Back to Landing Page</button>
   </div>
 
   <script>
@@ -263,11 +264,6 @@
       const mailtoLink = `mailto:${email}?subject=Order Confirmation&body=${body}`;
       window.location.href = mailtoLink;
     }
- <div class="order-button">
-  <button onclick="window.location.href='index.html'">← Back to Landing Page</button>
-</div> 
-    }
-    
-  </script>
+<script>     
 </body>
 </html>
