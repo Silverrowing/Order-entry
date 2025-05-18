@@ -138,5 +138,19 @@
     "IBAN": "PT50000201231234567890154",
     "Phone": "+351 21 1234567",
     "Email": "geral@silvalda.pt"
+  },
+  {
+    "Customer ID": 1011,
+    "Customer name": "malerplaar GmbH",
+    "Street": "Roseller Straße",
+    "Street nr": 1,
+    "Postal code": 41539,
+    "Town": "Dormagen",
+    "State/Region": "NRW",
+    "Country": "Germany",
+    "VAT number": "DE412354894",
+    "IBAN": "DE16200405175444424931",
+    "Phone": "+49 2133 43375",
+    "Email": "info@malerplaar.de"
   }
 ]
