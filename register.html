@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Register or Login</title>
@@ -12,24 +13,28 @@
       flex-direction: column;
       align-items: center;
     }
+
     h2 {
       color: #003366;
     }
+
     form {
       background: #fff;
       border: 1px solid #ccc;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 320px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
     }
+
     input {
-      width: 100%;
+      width: 90%;
       padding: 10px;
       margin-bottom: 15px;
       border-radius: 4px;
       border: 1px solid #ccc;
     }
+
     button {
       width: 100%;
       padding: 10px;
@@ -39,15 +44,35 @@
       border-radius: 4px;
       cursor: pointer;
     }
+
     button:hover {
       background-color: #004c99;
     }
+
+    .back-links {
+      margin-top: 40px;
+    }
+
+    .back-links a {
+      display: block;
+      color: #777;
+      font-size: 16x;
+      text-decoration: none;
+      margin-top: 20px;
+    }
+
+    .back-links a:hover {
+      text-decoration: underline;
+    }
+
     .back {
       margin-top: 20px;
+      padding: 20px;
       text-align: center;
     }
   </style>
 </head>
+
 <body>
   <h2>Register or Login</h2>
   <form id="registerForm">
@@ -56,8 +81,9 @@
     <button type="submit">Continue</button>
   </form>
 
-  <div class="back">
-    <a href="index.html">&larr; Back to Home</a>
+  <div class="back-links">
+    <a href="index.html">← Back to Main Portal</a>
+    <a href="customer-portal.html">← Back to Customer Portal</a>
   </div>
 
   <script>
@@ -75,4 +101,5 @@
     });
   </script>
 </body>
+
 </html>
