@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enter Your Customer Data</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h2>Enter Your Company Details</h2>
+  <form id="customerForm">
+    <label for="customerName">Customer Name</label>
+    <input type="text" id="customerName" required>
+
+    <label for="street">Street</label>
+    <input type="text" id="street" required>
+
+    <label for="streetNr">Street Number</label>
+    <input type="text" id="streetNr" required>
+
+    <label for="postalCode">Postal Code</label>
+    <input type="text" id="postalCode" required>
+
+    <label for="town">Town</label>
+    <input type="text" id="town" required>
+
+    <label for="state">State/Region</label>
+    <input type="text" id="state" required>
+
+    <label for="country">Country</label>
+    <input type="text" id="country" required>
+
+    <label for="vatNumber">VAT Number</label>
+    <input type="text" id="vatNumber" required>
+
+    <label for="iban">IBAN</label>
+    <input type="text" id="iban" required>
+
+    <label for="phone">Phone</label>
+    <input type="text" id="phone" required>
+
+    <label for="email">Email</label>
+    <input type="text" id="email" required>
+
+    <button type="submit">Save My Data</button>
+  </form>
+
+  <script>
+    document.getElementById("customerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const customerData = {
+        "Customer ID": Date.now(),
+        "Customer name": document.getElementById("customerName").value,
+        "Street": document.getElementById("street").value,
+        "Street nr": document.getElementById("streetNr").value,
+        "Postal code": document.getElementById("postalCode").value,
+        "Town": document.getElementById("town").value,
+        "State/Region": document.getElementById("state").value,
+        "Country": document.getElementById("country").value,
+        "VAT number": document.getElementById("vatNumber").value,
+        "IBAN": document.getElementById("iban").value,
+        "Phone": document.getElementById("phone").value,
+        "Email": document.getElementById("email").value
+      };
+
+      localStorage.setItem("registeredCustomerData", JSON.stringify(customerData));
+      alert("Customer data saved successfully!");
+      window.location.href = "order-entry.html";
+    });
+  </script>
+</body>
+</html>
