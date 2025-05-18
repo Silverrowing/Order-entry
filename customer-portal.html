@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Chemica Online Portal</title>
+  <title>Customer Portal – Chemica</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -10,11 +10,6 @@
       margin: 0;
       padding: 50px 20px 20px 20px;
       text-align: center;
-    }
-
-    img {
-      max-width: 150px;
-      margin-bottom: 20px;
     }
 
     h1 {
@@ -46,7 +41,7 @@
       border-radius: 8px;
       text-decoration: none;
       transition: all 0.2s ease-in-out;
-      min-width: 220px;
+      min-width: 200px;
     }
 
     .button-container a:hover {
@@ -54,25 +49,29 @@
       color: #ffffff;
     }
 
-    .footer {
+    .back-link {
+      display: block;
       margin-top: 40px;
+      font-size: 14px;
       color: #777;
-      font-size: 0.9em;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <img src="ChatGPT Image May 18, 2025, 11_06_09 AM.png" alt="Chemica Logo">
-  <h1>Chemica Online Trading Ltd.</h1>
-  <p>Business Bay, Tower 7, Dubai, UAE</p>
+  <h1>Welcome to the Chemica Customer Portal</h1>
+  <p>Manage your orders and customer data easily.</p>
 
   <div class="button-container">
-    <a href="customer-portal.html">Customer Section</a>
-    <a href="company-portal.html">Company Section</a>
+    <a href="order-entry.html">Customer Order Entry</a>
+    <a href="my-customer-data.html">My Customer Master Data</a>
+    <a href="register.html">Register Now</a>
   </div>
 
-  <div class="footer">
-    &copy; 2025 Chemica Online Trading Ltd. All rights reserved.
-  </div>
+  <a href="index.html" class="back-link">← Back to Main Portal</a>
 </body>
 </html>
