@@ -11,23 +11,24 @@
       max-width: 800px;
       margin: auto;
     }
+
     h2 {
       text-align: center;
     }
+
     form {
       background: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-	<a href="index.html" class="back-link">← Back to Main Portal</a>
-	<br>
-	<a href="customer-portal.html" class="back-link">← Back to Customer Portal</a>   
     }
+
     label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
     }
+
     input[type="text"] {
       width: 100%;
       padding: 8px;
@@ -35,6 +36,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+
     button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -45,24 +47,32 @@
       font-size: 16px;
       cursor: pointer;
     }
+
     button:hover {
       background-color: #0056b3;
     }
-.back-link {
-  display: block;
-  margin-top: 10px;
-  color: #555;
-  text-decoration: none;
-  font-size: 14px;
-}
 
-.back-link:hover {
-  text-decoration: underline;
-}
-</style>
+    .back-links {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 10px;
+      color: #555;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <h2>Enter Your Company Details</h2>
+
   <form id="customerForm">
     <label for="customerName">Customer Name</label>
     <input type="text" id="customerName" required>
@@ -100,9 +110,33 @@
     <button type="submit">Save My Data</button>
   </form>
 
+  <div class="back-links">
+    <a href="index.html" class="back-link">← Back to Main Portal</a>
+    <a href="customer-portal.html" class="back-link">← Back to Customer Portal</a>
+  </div>
+
   <script>
     document.getElementById("customerForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
       const customerData = {
         "Customer ID": Date.now(),
+        "Customer name": document.getElementById("customerName").value,
+        "Street": document.getElementById("street").value,
+        "Street nr": document.getElementById("streetNr").value,
+        "Postal code": document.getElementById("postalCode").value,
+        "Town": document.getElementById("town").value,
+        "State/Region": document.getElementById("state").value,
+        "Country": document.getElementById("country").value,
+        "VAT number": document.getElementById("vatNumber").value,
+        "IBAN": document.getElementById("iban").value,
+        "Phone": document.getElementById("phone").value,
+        "Email": document.getElementById("email").value
+      };
+
+      console.log("Customer Data Submitted:", customerData);
+      alert("Your customer data has been saved (locally). Thank you!");
+    });
+  </script>
+</body>
+</html>
