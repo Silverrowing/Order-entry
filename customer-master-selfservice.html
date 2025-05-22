@@ -45,6 +45,7 @@
     button:hover {
       background-color: #0056b3;
     }
+
   </style>
 </head>
 <body>
@@ -84,6 +85,9 @@
     <input type="text" id="email" required>
 
     <button type="submit">Save My Data</button>
+
+	<a href="index.html" class="back-link">← Back to Main Portal</a>
+
   </form>
 
   <script>
@@ -92,23 +96,3 @@
 
       const customerData = {
         "Customer ID": Date.now(),
-        "Customer name": document.getElementById("customerName").value,
-        "Street": document.getElementById("street").value,
-        "Street nr": document.getElementById("streetNr").value,
-        "Postal code": document.getElementById("postalCode").value,
-        "Town": document.getElementById("town").value,
-        "State/Region": document.getElementById("state").value,
-        "Country": document.getElementById("country").value,
-        "VAT number": document.getElementById("vatNumber").value,
-        "IBAN": document.getElementById("iban").value,
-        "Phone": document.getElementById("phone").value,
-        "Email": document.getElementById("email").value
-      };
-
-      localStorage.setItem("registeredCustomerData", JSON.stringify(customerData));
-      alert("Customer data saved successfully!");
-      window.location.href = "order-entry.html";
-    });
-  </script>
-</body>
-</html>
