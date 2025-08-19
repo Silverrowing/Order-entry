@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chemica Company Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Chemica Online Portal - Company Section</h1>
+
+    <div class="button-container">
+        <button onclick="location.href='view-customer-master.html'">Customer Master Data</button>
+        <button onclick="location.href='view-product-catalog.html'">Product Catalog</button>
+        <button onclick="location.href='view-vat-rates.html'">VAT Rates</button>
+        <button onclick="location.href='view-open-orders.html'">Open Orders</button>
+    </div>
+
+    <br><br>
+    <a href="index.html">← Back to Main Portal</a>
+</body>
+
+</html>
