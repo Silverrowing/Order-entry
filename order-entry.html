@@ -1,4 +1,3 @@
-<!-- order-entry.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,6 +29,9 @@
       font-weight: bold;
       text-align: right;
       margin-top: 10px;
+    }
+    .form-section {
+      margin: 20px 0;
     }
     .form-section input {
       padding: 5px;
@@ -101,31 +103,45 @@
   <div class="total">Grand Total incl. VAT (EUR): €<span id="grandTotal">0.00</span></div>
 
   <div class="order-button">
-    <button onclick="submitOrder()">Order Now</button>
-    <button onclick="window.location.href='index.html'">← Back to Landing Page</button>
+     <button onclick="sendOrderConfirmation()">Order Now</button>
+     <button onclick="window.location.href='index.html'">← Back to Landing Page</button>
   </div>
 
   <script>
     document.getElementById('orderDate').valueAsDate = new Date();
     const orderTableBody = document.querySelector('#orderTable tbody');
-    let productCatalog = [], customerData = [], vatData = [], currentCustomer = null;
+    let productCatalog = [];
+    let customerData = [];
+    let vatData = [];
+    let currentCustomer = null;
 
-    fetch('product-catalog.json').then(res => res.json()).then(data => productCatalog = data);
-    fetch('customer-master.json').then(res => res.json()).then(data => customerData = data);
-    fetch('vat.json').then(res => res.json()).then(data => vatData = data);
+    fetch('product-catalog.json')
+      .then(res => res.json())
+      .then(data => productCatalog = data);
+
+    fetch('customer-master.json')
+      .then(res => res.json())
+      .then(data => customerData = data);
+
+    fetch('vat.json')
+      .then(res => res.json())
+      .then(data => vatData = data);
 
     function searchCustomer() {
       const input = document.getElementById('customerSearch').value.toLowerCase();
       const resultsContainer = document.getElementById('customerSearchResults');
       resultsContainer.innerHTML = '';
+
       if (input.length < 2) return;
+
       const matches = customerData.filter(c =>
         (c["Customer name"] && c["Customer name"].toLowerCase().includes(input)) ||
         (c["Email"] && c["Email"].toLowerCase().includes(input))
       );
+
       matches.slice(0, 10).forEach(customer => {
         const div = document.createElement('div');
-        div.textContent = \`\${customer["Customer name"]} (\${customer["Email"]})\`;
+        div.textContent = `${customer["Customer name"]} (${customer["Email"]})`;
         div.onclick = () => selectCustomer(customer);
         resultsContainer.appendChild(div);
       });
@@ -133,25 +149,27 @@
 
     function selectCustomer(customer) {
       currentCustomer = customer;
-      document.getElementById('customerSearch').value = \`\${customer["Customer name"]} (\${customer["Email"]})\`;
+      document.getElementById('customerSearch').value = `${customer["Customer name"]} (${customer["Email"]})`;
       document.getElementById('customerSearchResults').innerHTML = '';
+
       const container = document.getElementById('customerDetails');
-      container.innerHTML = \`
-        <strong>Customer:</strong> \${customer["Customer name"]}<br>
-        \${customer["Street"]} \${customer["Street nr"]}, \${customer["Postal code"]} \${customer["Town"]}, \${customer["Country"]}<br>
-        VAT: \${customer["VAT number"]}<br>
-        IBAN: \${customer["IBAN"]}
-      \`;
+      container.innerHTML = `
+        <strong>Customer:</strong> ${customer["Customer name"]}<br>
+        ${customer["Street"]} ${customer["Street nr"]}, ${customer["Postal code"]} ${customer["Town"]}, ${customer["Country"]}<br>
+        VAT: ${customer["VAT number"]}<br>
+        IBAN: ${customer["IBAN"]}
+      `;
       container.style.display = 'block';
       updateTotals();
     }
 
     function addOrderLine() {
       const row = document.createElement('tr');
-      const productOptions = productCatalog.map((product, index) =>
-        \`<option value="\${index}">\${product['Product Name']}</option>\`).join('');
-      row.innerHTML = \`
-        <td><select onchange="populateProductDetails(this)"><option value="">Select</option>\${productOptions}</select></td>
+      const productOptions = productCatalog.map((product, index) => 
+        `<option value="${index}">${product['Product Name']}</option>`).join('');
+
+      row.innerHTML = `
+        <td><select onchange="populateProductDetails(this)"><option value="">Select</option>${productOptions}</select></td>
         <td class="code"></td>
         <td class="price"></td>
         <td class="unit"></td>
@@ -159,7 +177,8 @@
         <td><input type="number" min="0" class="qtyInput" oninput="updateTotals()"></td>
         <td style="text-align:right;">€<span class="lineTotal">0.00</span></td>
         <td><span class="deliveryDate">N/A</span></td>
-      \`;
+      `;
+
       orderTableBody.appendChild(row);
     }
 
@@ -167,9 +186,10 @@
       const row = select.closest('tr');
       const index = select.value;
       if (!productCatalog[index]) return;
+
       const product = productCatalog[index];
       row.querySelector('.code').textContent = product['Product Code'];
-      row.querySelector('.price').textContent = \`€\${product['Price']}\`;
+      row.querySelector('.price').textContent = `€${product['Price']}`;
       row.querySelector('.unit').textContent = product['Unit'];
       row.querySelector('.delivery').textContent = product['Delivery Days'];
       updateTotals();
@@ -190,6 +210,7 @@
         const lineTotal = price * qty;
         row.querySelector('.lineTotal').textContent = formatNumber(lineTotal);
         subtotal += lineTotal;
+
         if (qty > 0 && deliveryDays) {
           const deliveryDate = new Date(orderDate);
           deliveryDate.setDate(orderDate.getDate() + deliveryDays);
@@ -201,66 +222,48 @@
 
       let vatRate = 0;
       if (currentCustomer) {
-        const country = currentCustomer["Country"];
-        const vatEntry = vatData.find(v => v.country?.toLowerCase().trim() === country.toLowerCase().trim());
-        vatRate = vatEntry ? parseFloat(vatEntry["VAT (%)"]) : 0;
+        const customerCountry = currentCustomer["Country"];
+        const vatEntry = vatData.find(v => v.country?.toLowerCase().trim() === customerCountry.toLowerCase().trim());
+        vatRate = vatEntry && vatEntry["VAT (%)"] !== undefined ? parseFloat(vatEntry["VAT (%)"]) : 0;
       }
 
-      const vatAmount = subtotal * (vatRate / 100);
-      document.getElementById('vatRate').textContent = \`\${vatRate.toFixed(2)}%\`;
+      const normalizedRate = vatRate > 1 ? vatRate / 100 : vatRate;
+      const vatAmount = subtotal * normalizedRate;
+      const grandTotal = subtotal + vatAmount;
+
+      document.getElementById('vatRate').textContent = `${(normalizedRate * 100).toFixed(2)}%`;
       document.getElementById('vatAmount').textContent = formatNumber(vatAmount);
-      document.getElementById('grandTotal').textContent = formatNumber(subtotal + vatAmount);
+      document.getElementById('grandTotal').textContent = formatNumber(grandTotal);
     }
 
-    function submitOrder() {
-      if (!currentCustomer) return alert("Please select a customer first.");
-      const orderID = Date.now();
+    function sendOrderConfirmation() {
+      const email = currentCustomer?.["Email"] || "";
+      const grandTotal = document.getElementById('grandTotal').textContent;
       const orderDate = document.getElementById('orderDate').value;
-      const subtotal = parseFloat(document.getElementById('grandTotal').textContent.replace(',', '')) || 0;
-      const vatAmount = parseFloat(document.getElementById('vatAmount').textContent.replace(',', '')) || 0;
-      let line = 10;
 
-      const entries = [];
+      if (!email) {
+        alert('Please select a customer.');
+        return;
+      }
+
+      let body = `Thank you for your order!%0D%0AOrder Date: ${orderDate}%0D%0A%0D%0AOrder Details:%0D%0A`;
       document.querySelectorAll('#orderTable tbody tr').forEach(row => {
-        const select = row.querySelector('select');
-        const qty = parseFloat(row.querySelector('.qtyInput')?.value || 0);
-        if (!select || !select.value || qty <= 0) return;
-        const product = productCatalog[select.value];
-        const lineTotal = qty * parseFloat(product["Price"]);
+        const product = row.querySelector('select')?.selectedOptions[0].textContent;
+        const code = row.querySelector('.code').textContent;
+        const qty = row.querySelector('.qtyInput')?.value;
+        const total = row.querySelector('.lineTotal').textContent;
         const deliveryDate = row.querySelector('.deliveryDate').textContent;
-
-        entries.push({
-          "Order ID": orderID,
-          "Order Line": line,
-          "Customer Email": currentCustomer["Email"],
-          "Customer Name": currentCustomer["Customer name"],
-          "Customer ID": currentCustomer["Customer ID"],
-          "Order Date": orderDate,
-          "Product": product["Product Name"],
-          "line item": product["Product Code"],
-          "Net Amount (EUR)": lineTotal.toFixed(2),
-          "VAT Amount (EUR)": (lineTotal * (vatAmount / subtotal)).toFixed(2),
-          "Total Amount (EUR)": (lineTotal * (1 + vatAmount / subtotal)).toFixed(2),
-          "Delivery Date": deliveryDate,
-          "Status": "",
-          "Addtl comment": ""
-        });
-
-        line += 10;
+        if (qty > 0) {
+          body += `Product: ${product} (${code}) | Quantity: ${qty} kg | Total: €${total} | Delivery Date: ${deliveryDate}%0D%0A`;
+        }
       });
 
-      if (entries.length === 0) return alert("No valid order lines found.");
+      body += `%0D%0AVAT: ${document.getElementById('vatRate').textContent} | VAT Amount: €${document.getElementById('vatAmount').textContent}`;
+      body += `%0D%0AGrand Total incl. VAT: €${grandTotal}`;
 
-      downloadJSON(entries, 'open-orders.json');
-    }
-
-    function downloadJSON(data, filename) {
-      const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = filename;
-      link.click();
-    }
+      const mailtoLink = `mailto:${email}?subject=Order Confirmation&body=${body}`;
+      window.location.href = mailtoLink;
+    }  
   </script>
 </body>
 </html>
