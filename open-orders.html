@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Open Orders</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #e0e0e0;
+    }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    .back-link a {
+      color: #003366;
+      text-decoration: none;
+    }
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>Open Orders</h2>
+  <table id="ordersTable">
+    <thead>
+      <tr>
+        <th>Order No</th>
+        <th>Order Line</th>
+        <th>Customer ID</th>
+        <th>Product Name</th>
+        <th>Product Code</th>
+        <th>Quantity (kg)</th>
+        <th>Unit</th>
+        <th>Price (EUR/kg)</th>
+        <th>Delivery Days</th>
+        <th>Delivery Date</th>
+        <th>Order Date</th>
+        <th>Status</th>
+        <th>Expected Delivery</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="back-link">
+    <a href="company-portal.html">← Back to Company Portal</a>
+  </div>
+
+  <script>
+    fetch('open-orders.json')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.querySelector('#ordersTable tbody');
+        data.forEach(order => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${order["Order No"]}</td>
+            <td>${order["Order Line"]}</td>
+            <td>${order["Customer ID"]}</td>
+            <td>${order["Product Name"]}</td>
+            <td>${order["Product Code"]}</td>
+            <td>${order["Quantity (kg)"]}</td>
+            <td>${order["Unit"]}</td>
+            <td>${order["Price (EUR/kg)"]}</td>
+            <td>${order["Delivery Days"]}</td>
+            <td>${order["Delivery Date"]}</td>
+            <td>${order["Order Date"]}</td>
+            <td>${order["Status"]}</td>
+            <td>${order["Expected Delivery"]}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error loading open-orders.json:', error);
+      });
+  </script>
+</body>
+</html>
