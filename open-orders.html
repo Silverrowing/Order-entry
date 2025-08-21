@@ -6,19 +6,17 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f6f8;
+      background-color: #f4f6f8;
       padding: 20px;
-      max-width: 1200px;
-      margin: auto;
     }
     h2 {
       text-align: center;
-      margin-bottom: 30px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 30px;
+      margin-top: 20px;
+      background-color: #fff;
     }
     th, td {
       border: 1px solid #ccc;
@@ -26,77 +24,69 @@
       text-align: left;
     }
     th {
-      background-color: #e0e0e0;
+      background-color: #007bff;
+      color: white;
     }
     .back-link {
       display: block;
-      text-align: center;
       margin-top: 20px;
-      font-size: 16px;
-    }
-    .back-link a {
+      text-align: center;
       color: #003366;
       text-decoration: none;
     }
-    .back-link a:hover {
+    .back-link:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <h2>Open Orders</h2>
+
   <table id="ordersTable">
-    <thead>
-      <tr>
-        <th>Order No</th>
-        <th>Order Line</th>
-        <th>Customer ID</th>
-        <th>Product Name</th>
-        <th>Product Code</th>
-        <th>Quantity (kg)</th>
-        <th>Unit</th>
-        <th>Price (EUR/kg)</th>
-        <th>Delivery Days</th>
-        <th>Delivery Date</th>
-        <th>Order Date</th>
-        <th>Status</th>
-        <th>Expected Delivery</th>
-      </tr>
-    </thead>
+    <thead></thead>
     <tbody></tbody>
   </table>
 
-  <div class="back-link">
-    <a href="company-portal.html">← Back to Company Portal</a>
-  </div>
+  <a href="company-portal.html" class="back-link">← Back to Company Section</a>
 
   <script>
     fetch('open-orders.json')
       .then(response => response.json())
       .then(data => {
-        const tbody = document.querySelector('#ordersTable tbody');
+        const table = document.getElementById('ordersTable');
+        const thead = table.querySelector('thead');
+        const tbody = table.querySelector('tbody');
+
+        if (data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="100%">No orders found</td></tr>';
+          return;
+        }
+
+        // Create table headers
+        const headers = Object.keys(data[0]);
+        const headerRow = document.createElement('tr');
+        headers.forEach(key => {
+          const th = document.createElement('th');
+          th.textContent = key;
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+
+        // Populate table with data
         data.forEach(order => {
           const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${order["Order No"]}</td>
-            <td>${order["Order Line"]}</td>
-            <td>${order["Customer ID"]}</td>
-            <td>${order["Product Name"]}</td>
-            <td>${order["Product Code"]}</td>
-            <td>${order["Quantity (kg)"]}</td>
-            <td>${order["Unit"]}</td>
-            <td>${order["Price (EUR/kg)"]}</td>
-            <td>${order["Delivery Days"]}</td>
-            <td>${order["Delivery Date"]}</td>
-            <td>${order["Order Date"]}</td>
-            <td>${order["Status"]}</td>
-            <td>${order["Expected Delivery"]}</td>
-          `;
+          headers.forEach(key => {
+            const td = document.createElement('td');
+            td.textContent = order[key];
+            row.appendChild(td);
+          });
           tbody.appendChild(row);
         });
       })
       .catch(error => {
-        console.error('Error loading open-orders.json:', error);
+        console.error('Failed to load JSON:', error);
+        const tbody = document.querySelector('#ordersTable tbody');
+        tbody.innerHTML = '<tr><td colspan="100%">Failed to load data.</td></tr>';
       });
   </script>
 </body>
