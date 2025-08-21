@@ -1,4 +1,4 @@
-[
+const openOrders = [
   {
     "Order Number": 1755699876527,
     "Order Line": 10,
@@ -27,4 +27,4 @@
     "Status": "Open",
     "Delivery Status": "Pending"
   }
-]
+];
