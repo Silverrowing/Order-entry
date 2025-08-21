@@ -49,7 +49,7 @@
     <thead>
       <tr>
         <th>Country</th>
-        <th>VAT (%)</th>
+        <th>VAT</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -68,7 +68,7 @@
           const row = document.createElement('tr');
           row.innerHTML = `
             <td>${entry["country"]}</td>
-            <td>${entry["VAT (%)"]}</td>
+            <td>${entry["VAT (%)"]}%</td>
           `;
           tbody.appendChild(row);
         });
