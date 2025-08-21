@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f6f8;
+      background-color: #f4f6f8;
       padding: 20px;
     }
     h2 {
@@ -16,7 +16,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
-      background: #fff;
+      background-color: #fff;
     }
     th, td {
       border: 1px solid #ccc;
@@ -24,20 +24,24 @@
       text-align: left;
     }
     th {
-      background: #007bff;
+      background-color: #007bff;
       color: white;
     }
     .back-link {
       display: block;
       margin-top: 20px;
       text-align: center;
-      font-size: 14px;
-      color: #333;
+      color: #003366;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <h2>Open Orders</h2>
+
   <table id="ordersTable">
     <thead></thead>
     <tbody></tbody>
@@ -45,45 +49,34 @@
 
   <a href="company-portal.html" class="back-link">← Back to Company Section</a>
 
+  <script src="open-orders.js"></script>
   <script>
-    fetch('open-orders.json')
-      .then(res => res.json())
-      .then(data => {
-        const table = document.getElementById('ordersTable');
-        const thead = table.querySelector('thead');
-        const tbody = table.querySelector('tbody');
+    const table = document.getElementById('ordersTable');
+    const thead = table.querySelector('thead');
+    const tbody = table.querySelector('tbody');
 
-        if (data.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="100%">No orders available</td></tr>';
-          return;
-        }
-
-        // Create table headers
-        const headers = Object.keys(data[0]);
-        const headerRow = document.createElement('tr');
-        headers.forEach(key => {
-          const th = document.createElement('th');
-          th.textContent = key;
-          headerRow.appendChild(th);
-        });
-        thead.appendChild(headerRow);
-
-        // Populate table rows
-        data.forEach(order => {
-          const row = document.createElement('tr');
-          headers.forEach(key => {
-            const td = document.createElement('td');
-            td.textContent = order[key];
-            row.appendChild(td);
-          });
-          tbody.appendChild(row);
-        });
-      })
-      .catch(error => {
-        console.error('Error loading open-orders.json:', error);
-        const tbody = document.querySelector('#ordersTable tbody');
-        tbody.innerHTML = '<tr><td colspan="100%">Failed to load orders.</td></tr>';
+    if (openOrders.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="100%">No orders found</td></tr>';
+    } else {
+      const headers = Object.keys(openOrders[0]);
+      const headerRow = document.createElement('tr');
+      headers.forEach(key => {
+        const th = document.createElement('th');
+        th.textContent = key;
+        headerRow.appendChild(th);
       });
+      thead.appendChild(headerRow);
+
+      openOrders.forEach(order => {
+        const row = document.createElement('tr');
+        headers.forEach(key => {
+          const td = document.createElement('td');
+          td.textContent = order[key];
+          row.appendChild(td);
+        });
+        tbody.appendChild(row);
+      });
+    }
   </script>
 </body>
 </html>
