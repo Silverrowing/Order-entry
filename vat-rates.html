@@ -68,7 +68,7 @@
           const row = document.createElement('tr');
           row.innerHTML = `
             <td>${entry["country"]}</td>
-            <td>${entry["VAT (%)"]}%</td>
+            <td>${(entry["VAT (%)"] * 100).toFixed(1)}%</td>
           `;
           tbody.appendChild(row);
         });
