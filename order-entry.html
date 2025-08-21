@@ -2,80 +2,231 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Open Orders</title>
+  <title>Customer Order Entry</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f6f8;
+      background: #f4f6f8;
       padding: 20px;
-    }
-    h2 {
-      text-align: center;
     }
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
-      background-color: #fff;
     }
     th, td {
       border: 1px solid #ccc;
-      padding: 8px;
+      padding: 10px;
       text-align: left;
     }
     th {
-      background-color: #007bff;
-      color: white;
+      background-color: #f4f4f4;
     }
-    .back-link {
-      display: block;
+    input[type='number'], select {
+      width: 100px;
+    }
+    .total {
+      font-weight: bold;
+      text-align: right;
+      margin-top: 10px;
+    }
+    .form-section {
+      margin: 20px 0;
+    }
+    .form-section input {
+      padding: 5px;
+      margin-right: 10px;
+    }
+    .order-button {
       margin-top: 20px;
-      text-align: center;
-      color: #003366;
-      text-decoration: none;
     }
-    .back-link:hover {
-      text-decoration: underline;
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    .customer-details {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+    }
+    #customerSearchResults {
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      max-height: 150px;
+      overflow-y: auto;
+      background: #fff;
+      position: absolute;
+      z-index: 1000;
+    }
+    #customerSearchResults div {
+      padding: 5px;
+      cursor: pointer;
+    }
+    #customerSearchResults div:hover {
+      background-color: #f0f0f0;
     }
   </style>
 </head>
 <body>
-  <h2>Open Orders</h2>
+  <h2>Customer Order Entry</h2>
 
-  <table id="ordersTable">
-    <thead></thead>
+  <div class="form-section">
+    <label for="customerSearch">Customer Name or Email:</label>
+    <input type="text" id="customerSearch" placeholder="Start typing..." oninput="searchCustomer()">
+    <div id="customerSearchResults"></div>
+
+    <label for="orderDate">Order Date:</label>
+    <input type="date" id="orderDate">
+  </div>
+
+  <div class="customer-details" id="customerDetails" style="display:none;"></div>
+
+  <button onclick="addOrderLine()">Add Product</button>
+  <table id="orderTable">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Code</th>
+        <th>Price (EUR/kg)</th>
+        <th>Unit</th>
+        <th>Delivery Days</th>
+        <th>Quantity (kg)</th>
+        <th style="text-align:right;">Total (EUR)</th>
+        <th>Delivery Date</th>
+      </tr>
+    </thead>
     <tbody></tbody>
   </table>
 
-  <a href="company-portal.html" class="back-link">← Back to Company Section</a>
+  <div class="total">VAT Rate: <span id="vatRate">0%</span> | VAT Amount: €<span id="vatAmount">0.00</span></div>
+  <div class="total">Grand Total incl. VAT (EUR): €<span id="grandTotal">0.00</span></div>
 
-  <script src="open-orders.js"></script>
+  <div class="order-button">
+    <button onclick="sendOrderConfirmation()">Order Now</button>
+    <button onclick="window.location.href='index.html'">← Back to Landing Page</button>
+  </div>
+
+  <script src="product-catalog.js"></script>
+  <script src="customer-master.js"></script>
+  <script src="vat.js"></script>
   <script>
-    const table = document.getElementById('ordersTable');
-    const thead = table.querySelector('thead');
-    const tbody = table.querySelector('tbody');
+    document.getElementById('orderDate').valueAsDate = new Date();
+    const orderTableBody = document.querySelector('#orderTable tbody');
+    let currentCustomer = null;
 
-    if (openOrders.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="100%">No orders found</td></tr>';
-    } else {
-      const headers = Object.keys(openOrders[0]);
-      const headerRow = document.createElement('tr');
-      headers.forEach(key => {
-        const th = document.createElement('th');
-        th.textContent = key;
-        headerRow.appendChild(th);
-      });
-      thead.appendChild(headerRow);
+    function searchCustomer() {
+      const input = document.getElementById('customerSearch').value.toLowerCase();
+      const resultsContainer = document.getElementById('customerSearchResults');
+      resultsContainer.innerHTML = '';
 
-      openOrders.forEach(order => {
-        const row = document.createElement('tr');
-        headers.forEach(key => {
-          const td = document.createElement('td');
-          td.textContent = order[key];
-          row.appendChild(td);
-        });
-        tbody.appendChild(row);
+      if (input.length < 2) return;
+
+      const matches = customerMaster.filter(c =>
+        (c["Customer name"] && c["Customer name"].toLowerCase().includes(input)) ||
+        (c["Email"] && c["Email"].toLowerCase().includes(input))
+      );
+
+      matches.slice(0, 10).forEach(customer => {
+        const div = document.createElement('div');
+        div.textContent = `${customer["Customer name"]} (${customer["Email"]})`;
+        div.onclick = () => selectCustomer(customer);
+        resultsContainer.appendChild(div);
       });
+    }
+
+    function selectCustomer(customer) {
+      currentCustomer = customer;
+      document.getElementById('customerSearch').value = `${customer["Customer name"]} (${customer["Email"]})`;
+      document.getElementById('customerSearchResults').innerHTML = '';
+
+      const container = document.getElementById('customerDetails');
+      container.innerHTML = `
+        <strong>Customer:</strong> ${customer["Customer name"]}<br>
+        ${customer["Street"]} ${customer["Street nr"]}, ${customer["Postal code"]} ${customer["Town"]}, ${customer["Country"]}<br>
+        VAT: ${customer["VAT number"]}<br>
+        IBAN: ${customer["IBAN"]}
+      `;
+      container.style.display = 'block';
+      updateTotals();
+    }
+
+    function addOrderLine() {
+      const row = document.createElement('tr');
+      const productOptions = productCatalog.map((product, index) => 
+        `<option value="${index}">${product['Product Name']}</option>`).join('');
+
+      row.innerHTML = `
+        <td><select onchange="populateProductDetails(this)"><option value="">Select</option>${productOptions}</select></td>
+        <td class="code"></td>
+        <td class="price"></td>
+        <td class="unit"></td>
+        <td class="delivery"></td>
+        <td><input type="number" min="0" class="qtyInput" oninput="updateTotals()"></td>
+        <td style="text-align:right;">€<span class="lineTotal">0.00</span></td>
+        <td><span class="deliveryDate">N/A</span></td>
+      `;
+
+      orderTableBody.appendChild(row);
+    }
+
+    function populateProductDetails(select) {
+      const row = select.closest('tr');
+      const index = select.value;
+      if (!productCatalog[index]) return;
+
+      const product = productCatalog[index];
+      row.querySelector('.code').textContent = product['Product Code'];
+      row.querySelector('.price').textContent = `€${product['Price']}`;
+      row.querySelector('.unit').textContent = product['Unit'];
+      row.querySelector('.delivery').textContent = product['Delivery Days'];
+      updateTotals();
+    }
+
+    function formatNumber(num) {
+      return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function updateTotals() {
+      let subtotal = 0;
+      const orderDate = new Date(document.getElementById('orderDate').value);
+      document.querySelectorAll('#orderTable tbody tr').forEach(row => {
+        const priceText = row.querySelector('.price').textContent.replace('€', '');
+        const price = parseFloat(priceText) || 0;
+        const qty = parseFloat(row.querySelector('.qtyInput')?.value || 0);
+        const deliveryDays = parseInt(row.querySelector('.delivery').textContent || 0);
+        const lineTotal = price * qty;
+        row.querySelector('.lineTotal').textContent = formatNumber(lineTotal);
+        subtotal += lineTotal;
+
+        if (qty > 0 && deliveryDays) {
+          const deliveryDate = new Date(orderDate);
+          deliveryDate.setDate(orderDate.getDate() + deliveryDays);
+          row.querySelector('.deliveryDate').textContent = deliveryDate.toISOString().split('T')[0];
+        } else {
+          row.querySelector('.deliveryDate').textContent = 'N/A';
+        }
+      });
+
+      let vatRate = 0;
+      if (currentCustomer) {
+        const customerCountry = currentCustomer["Country"];
+        const vatEntry = vatRates.find(v => v.country?.toLowerCase().trim() === customerCountry.toLowerCase().trim());
+        vatRate = vatEntry && vatEntry["VAT (%)"] !== undefined ? parseFloat(vatEntry["VAT (%)"]) : 0;
+      }
+
+      const normalizedRate = vatRate > 1 ? vatRate / 100 : vatRate;
+      const vatAmount = subtotal * normalizedRate;
+      const grandTotal = subtotal + vatAmount;
+
+      document.getElementById('vatRate').textContent = `${(normalizedRate * 100).toFixed(2)}%`;
+      document.getElementById('vatAmount').textContent = formatNumber(vatAmount);
+      document.getElementById('grandTotal').textContent = formatNumber(grandTotal);
+    }
+
+    function sendOrderConfirmation() {
+      alert("Order submitted successfully! JSON update would go here in production.");
+      // JSON logic can be added here to simulate writing to open-orders.js
     }
   </script>
 </body>
