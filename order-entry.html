@@ -103,17 +103,29 @@
   <div class="total">Grand Total incl. VAT (EUR): €<span id="grandTotal">0.00</span></div>
 
   <div class="order-button">
-    <button onclick="sendOrderConfirmation()">Order Now</button>
-    <button onclick="window.location.href='index.html'">← Back to Landing Page</button>
+     <button onclick="sendOrderConfirmation()">Order Now</button>
+     <button onclick="window.location.href='index.html'">← Back to Landing Page</button>
   </div>
 
-  <script src="product-catalog.js"></script>
-  <script src="customer-master.js"></script>
-  <script src="vat.js"></script>
   <script>
     document.getElementById('orderDate').valueAsDate = new Date();
     const orderTableBody = document.querySelector('#orderTable tbody');
+    let productCatalog = [];
+    let customerData = [];
+    let vatData = [];
     let currentCustomer = null;
+
+    fetch('product-catalog.json')
+      .then(res => res.json())
+      .then(data => productCatalog = data);
+
+    fetch('customer-master.json')
+      .then(res => res.json())
+      .then(data => customerData = data);
+
+    fetch('vat.json')
+      .then(res => res.json())
+      .then(data => vatData = data);
 
     function searchCustomer() {
       const input = document.getElementById('customerSearch').value.toLowerCase();
@@ -122,7 +134,7 @@
 
       if (input.length < 2) return;
 
-      const matches = customerMaster.filter(c =>
+      const matches = customerData.filter(c =>
         (c["Customer name"] && c["Customer name"].toLowerCase().includes(input)) ||
         (c["Email"] && c["Email"].toLowerCase().includes(input))
       );
@@ -211,7 +223,7 @@
       let vatRate = 0;
       if (currentCustomer) {
         const customerCountry = currentCustomer["Country"];
-        const vatEntry = vatRates.find(v => v.country?.toLowerCase().trim() === customerCountry.toLowerCase().trim());
+        const vatEntry = vatData.find(v => v.country?.toLowerCase().trim() === customerCountry.toLowerCase().trim());
         vatRate = vatEntry && vatEntry["VAT (%)"] !== undefined ? parseFloat(vatEntry["VAT (%)"]) : 0;
       }
 
@@ -225,9 +237,33 @@
     }
 
     function sendOrderConfirmation() {
-      alert("Order submitted successfully! JSON update would go here in production.");
-      // JSON logic can be added here to simulate writing to open-orders.js
-    }
+      const email = currentCustomer?.["Email"] || "";
+      const grandTotal = document.getElementById('grandTotal').textContent;
+      const orderDate = document.getElementById('orderDate').value;
+
+      if (!email) {
+        alert('Please select a customer.');
+        return;
+      }
+
+      let body = `Thank you for your order!%0D%0AOrder Date: ${orderDate}%0D%0A%0D%0AOrder Details:%0D%0A`;
+      document.querySelectorAll('#orderTable tbody tr').forEach(row => {
+        const product = row.querySelector('select')?.selectedOptions[0].textContent;
+        const code = row.querySelector('.code').textContent;
+        const qty = row.querySelector('.qtyInput')?.value;
+        const total = row.querySelector('.lineTotal').textContent;
+        const deliveryDate = row.querySelector('.deliveryDate').textContent;
+        if (qty > 0) {
+          body += `Product: ${product} (${code}) | Quantity: ${qty} kg | Total: €${total} | Delivery Date: ${deliveryDate}%0D%0A`;
+        }
+      });
+
+      body += `%0D%0AVAT: ${document.getElementById('vatRate').textContent} | VAT Amount: €${document.getElementById('vatAmount').textContent}`;
+      body += `%0D%0AGrand Total incl. VAT: €${grandTotal}`;
+
+      const mailtoLink = `mailto:${email}?subject=Order Confirmation&body=${body}`;
+      window.location.href = mailtoLink;
+    }  
   </script>
 </body>
 </html>
