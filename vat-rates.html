@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VAT Rates</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f8fb;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #003366;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link a {
+      text-decoration: none;
+      color: #003366;
+    }
+  </style>
+</head>
+<body>
+  <h2>VAT Rates</h2>
+  <table id="vatTable">
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>VAT (%)</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="back-link">
+    <a href="company-portal.html">← Back to Company Section</a>
+  </div>
+
+  <script>
+    fetch('vat.json')
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.querySelector('#vatTable tbody');
+        data.forEach(entry => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${entry["country"]}</td>
+            <td>${entry["VAT (%)"]}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error loading VAT data:', error));
+  </script>
+</body>
+</html>
