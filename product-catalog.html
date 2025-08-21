@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Catalog</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      padding: 20px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+    .back-link {
+      color: #003366;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>Product Catalog</h2>
+  <table id="productTable">
+    <thead>
+      <tr></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <a href="company-portal.html" class="back-link">&larr; Back to Company Section</a>
+
+  <script>
+    fetch('product-catalog.json')
+      .then(response => response.json())
+      .then(data => {
+        const tableHead = document.querySelector('#productTable thead tr');
+        const tableBody = document.querySelector('#productTable tbody');
+
+        if (data.length === 0) return;
+
+        // Generate headers
+        Object.keys(data[0]).forEach(key => {
+          const th = document.createElement('th');
+          th.textContent = key;
+          tableHead.appendChild(th);
+        });
+
+        // Generate rows
+        data.forEach(entry => {
+          const row = document.createElement('tr');
+          Object.values(entry).forEach(value => {
+            const td = document.createElement('td');
+            td.textContent = value;
+            row.appendChild(td);
+          });
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error loading product catalog:', error));
+  </script>
+</body>
+</html>
