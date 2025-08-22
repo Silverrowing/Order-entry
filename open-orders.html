@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Customer Order Entry</title>
@@ -9,47 +10,60 @@
       background: #f4f6f8;
       padding: 20px;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
     }
-    th, td {
+
+    th,
+    td {
       border: 1px solid #ccc;
       padding: 10px;
       text-align: left;
     }
+
     th {
       background-color: #f4f4f4;
     }
-    input[type='number'], select {
+
+    input[type='number'],
+    select {
       width: 100px;
     }
+
     .total {
       font-weight: bold;
       text-align: right;
       margin-top: 10px;
     }
+
     .form-section {
       margin: 20px 0;
     }
+
     .form-section input {
       padding: 5px;
       margin-right: 10px;
     }
+
     .order-button {
       margin-top: 20px;
     }
+
     button {
       padding: 10px 20px;
       font-size: 16px;
     }
+
     .customer-details {
       margin-bottom: 20px;
       padding: 10px;
       border: 1px solid #ccc;
       background-color: #f9f9f9;
     }
+
     #customerSearchResults {
       margin-top: 5px;
       border: 1px solid #ccc;
@@ -59,15 +73,18 @@
       position: absolute;
       z-index: 1000;
     }
+
     #customerSearchResults div {
       padding: 5px;
       cursor: pointer;
     }
+
     #customerSearchResults div:hover {
       background-color: #f0f0f0;
     }
   </style>
 </head>
+
 <body>
   <h2>Customer Order Entry</h2>
 
@@ -107,9 +124,9 @@
     <button onclick="window.location.href='index.html'">← Back to Landing Page</button>
   </div>
 
-  <script src="product-catalog.js"></script>
-  <script src="customer-master.js"></script>
-  <script src="vat.js"></script>
+  <script src="data/product-catalog.js"></script>
+  <script src="data/customer-master.js"></script>
+  <script src="data/vat.js"></script>
   <script>
     document.getElementById('orderDate').valueAsDate = new Date();
     const orderTableBody = document.querySelector('#orderTable tbody');
@@ -153,7 +170,7 @@
 
     function addOrderLine() {
       const row = document.createElement('tr');
-      const productOptions = productCatalog.map((product, index) => 
+      const productOptions = productCatalog.map((product, index) =>
         `<option value="${index}">${product['Product Name']}</option>`).join('');
 
       row.innerHTML = `
@@ -230,4 +247,5 @@
     }
   </script>
 </body>
+
 </html>

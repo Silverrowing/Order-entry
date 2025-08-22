@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>VAT Rates</title>
@@ -21,7 +22,8 @@
       margin-top: 20px;
     }
 
-    th, td {
+    th,
+    td {
       border: 1px solid #ccc;
       padding: 10px;
       text-align: left;
@@ -43,6 +45,7 @@
     }
   </style>
 </head>
+
 <body>
   <h2>VAT Rates</h2>
   <table id="vatTable">
@@ -60,7 +63,7 @@
   </div>
 
   <script>
-    fetch('vat.json')
+    fetch('data/vat.json')
       .then(response => response.json())
       .then(data => {
         const tbody = document.querySelector('#vatTable tbody');
@@ -76,4 +79,5 @@
       .catch(error => console.error('Error loading VAT data:', error));
   </script>
 </body>
+
 </html>

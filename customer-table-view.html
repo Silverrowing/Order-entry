@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Our Customers</title>
@@ -9,10 +10,12 @@
       background: #f4f6f8;
       padding: 20px;
     }
+
     h2 {
       text-align: center;
       color: #003366;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -20,14 +23,18 @@
       background-color: #fff;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-    th, td {
+
+    th,
+    td {
       border: 1px solid #ccc;
       padding: 10px;
       text-align: left;
     }
+
     th {
       background-color: #e6f0ff;
     }
+
     .back-button {
       display: inline-block;
       margin-top: 20px;
@@ -37,11 +44,13 @@
       text-decoration: none;
       border-radius: 6px;
     }
+
     .back-button:hover {
       background-color: #0055aa;
     }
   </style>
 </head>
+
 <body>
   <h2>Our Registered Customers</h2>
   <table id="customerTable">
@@ -65,7 +74,7 @@
   <a href="company-portal.html" class="back-button">← Back to Company Portal</a>
 
   <script>
-    fetch('customer-master.json')
+    fetch('data/customer-master.json')
       .then(res => res.json())
       .then(data => {
         const tbody = document.querySelector("#customerTable tbody");
@@ -88,4 +97,5 @@
       });
   </script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Product Catalog</title>
@@ -10,33 +11,41 @@
       padding: 20px;
       text-align: center;
     }
+
     h2 {
       margin-bottom: 20px;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 30px;
     }
-    th, td {
+
+    th,
+    td {
       border: 1px solid #ccc;
       padding: 8px;
       text-align: left;
     }
+
     th {
       background-color: #007bff;
       color: white;
     }
+
     .back-link {
       color: #003366;
       text-decoration: none;
       font-size: 16px;
     }
+
     .back-link:hover {
       text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
   <h2>Product Catalog</h2>
   <table id="productTable">
@@ -48,7 +57,7 @@
   <a href="company-portal.html" class="back-link">&larr; Back to Company Section</a>
 
   <script>
-    fetch('product-catalog.json')
+    fetch('data/product-catalog.json')
       .then(response => response.json())
       .then(data => {
         const tableHead = document.querySelector('#productTable thead tr');
@@ -77,4 +86,5 @@
       .catch(error => console.error('Error loading product catalog:', error));
   </script>
 </body>
+
 </html>

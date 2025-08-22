@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,27 +11,35 @@
       background-color: #f4f6f8;
       padding: 20px;
     }
+
     h2 {
       text-align: center;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       background-color: white;
     }
-    th, td {
+
+    th,
+    td {
       padding: 8px;
       border: 1px solid #ccc;
       text-align: left;
     }
+
     th {
       background-color: #007bff;
       color: white;
     }
-    input, select {
+
+    input,
+    select {
       width: 100%;
       box-sizing: border-box;
     }
+
     .back-link {
       display: block;
       margin: 20px 0;
@@ -38,6 +47,7 @@
     }
   </style>
 </head>
+
 <body>
   <h2>Edit Open Orders</h2>
   <table id="ordersTable">
@@ -49,7 +59,7 @@
   <div class="back-link">
     <a href="company-portal.html">&larr; Back to Company Section</a>
   </div>
-  <script src="open-orders.js"></script>
+  <script src="data/open-orders.js"></script>
   <script>
     const editableFields = ["Delivery Date", "Status", "Information to Customer"];
 
@@ -95,4 +105,5 @@
     }
   </script>
 </body>
+
 </html>
