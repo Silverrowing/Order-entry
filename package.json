@@ -1,0 +1,25 @@
+{
+  "name": "order-entry",
+  "version": "1.0.0",
+  "description": "My learning journey into AI supported Order entry",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Silverrowing/Order-entry.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Silverrowing/Order-entry/issues"
+  },
+  "homepage": "https://github.com/Silverrowing/Order-entry#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

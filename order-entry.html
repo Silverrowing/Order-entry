@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Customer Order Entry</title>
@@ -9,47 +10,60 @@
       background: #f4f6f8;
       padding: 20px;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
     }
-    th, td {
+
+    th,
+    td {
       border: 1px solid #ccc;
       padding: 10px;
       text-align: left;
     }
+
     th {
       background-color: #f4f4f4;
     }
-    input[type='number'], select {
+
+    input[type='number'],
+    select {
       width: 100px;
     }
+
     .total {
       font-weight: bold;
       text-align: right;
       margin-top: 10px;
     }
+
     .form-section {
       margin: 20px 0;
     }
+
     .form-section input {
       padding: 5px;
       margin-right: 10px;
     }
+
     .order-button {
       margin-top: 20px;
     }
+
     button {
       padding: 10px 20px;
       font-size: 16px;
     }
+
     .customer-details {
       margin-bottom: 20px;
       padding: 10px;
       border: 1px solid #ccc;
       background-color: #f9f9f9;
     }
+
     #customerSearchResults {
       margin-top: 5px;
       border: 1px solid #ccc;
@@ -59,15 +73,18 @@
       position: absolute;
       z-index: 1000;
     }
+
     #customerSearchResults div {
       padding: 5px;
       cursor: pointer;
     }
+
     #customerSearchResults div:hover {
       background-color: #f0f0f0;
     }
   </style>
 </head>
+
 <body>
   <h2>Customer Order Entry</h2>
 
@@ -103,8 +120,8 @@
   <div class="total">Grand Total incl. VAT (EUR): €<span id="grandTotal">0.00</span></div>
 
   <div class="order-button">
-     <button onclick="sendOrderConfirmation()">Order Now</button>
-     <button onclick="window.location.href='index.html'">← Back to Landing Page</button>
+    <button onclick="sendOrderConfirmation()">Order Now</button>
+    <button onclick="window.location.href='index.html'">← Back to Landing Page</button>
   </div>
 
   <script>
@@ -165,7 +182,7 @@
 
     function addOrderLine() {
       const row = document.createElement('tr');
-      const productOptions = productCatalog.map((product, index) => 
+      const productOptions = productCatalog.map((product, index) =>
         `<option value="${index}">${product['Product Name']}</option>`).join('');
 
       row.innerHTML = `
@@ -237,33 +254,83 @@
     }
 
     function sendOrderConfirmation() {
-      const email = currentCustomer?.["Email"] || "";
-      const grandTotal = document.getElementById('grandTotal').textContent;
-      const orderDate = document.getElementById('orderDate').value;
-
-      if (!email) {
-        alert('Please select a customer.');
+      if (!currentCustomer) {
+        alert('Please select a customer before placing an order.');
         return;
       }
 
-      let body = `Thank you for your order!%0D%0AOrder Date: ${orderDate}%0D%0A%0D%0AOrder Details:%0D%0A`;
+      const orderDate = document.getElementById('orderDate').value;
+      const orderId = Date.now(); // unique order ID based on timestamp
+      let orderLines = [];
+
+      let lineNo = 10;
       document.querySelectorAll('#orderTable tbody tr').forEach(row => {
-        const product = row.querySelector('select')?.selectedOptions[0].textContent;
-        const code = row.querySelector('.code').textContent;
-        const qty = row.querySelector('.qtyInput')?.value;
-        const total = row.querySelector('.lineTotal').textContent;
-        const deliveryDate = row.querySelector('.deliveryDate').textContent;
-        if (qty > 0) {
-          body += `Product: ${product} (${code}) | Quantity: ${qty} kg | Total: €${total} | Delivery Date: ${deliveryDate}%0D%0A`;
-        }
+        const select = row.querySelector('select');
+        const productIndex = select.value;
+        if (!productCatalog[productIndex]) return;
+
+        const qty = parseFloat(row.querySelector('.qtyInput')?.value || 0);
+        if (qty <= 0) return;
+
+        const product = productCatalog[productIndex];
+        const deliveryDays = parseInt(product["Delivery Days"] || 0);
+        const deliveryDate = new Date(orderDate);
+        deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
+
+        const netAmount = qty * parseFloat(product["Price"]);
+        const vatEntry = vatData.find(v => v.country?.toLowerCase().trim() === currentCustomer["Country"].toLowerCase().trim());
+        const vatRate = vatEntry ? (vatEntry["VAT (%)"] > 1 ? vatEntry["VAT (%)"] / 100 : vatEntry["VAT (%)"]) : 0;
+        const vatAmount = netAmount * vatRate;
+        const totalAmount = netAmount + vatAmount;
+
+        orderLines.push({
+          "Order ID": orderId,
+          "Order Line": lineNo,
+          "Customer Email": currentCustomer["Email"],
+          "Customer Name": currentCustomer["Customer name"],
+          "Customer ID": currentCustomer["Customer ID"],
+          "Order Date": orderDate,
+          "Product": product["Product Name"],
+          "Product Code": product["Product Code"],
+          "Quantity (KG)": qty,
+          "Net Amount (EUR)": parseFloat(netAmount.toFixed(2)),
+          "VAT Amount (EUR)": parseFloat(vatAmount.toFixed(2)),
+          "Total Amount (EUR)": parseFloat(totalAmount.toFixed(2)),
+          "Delivery Date": deliveryDate.toISOString().split('T')[0],
+          "Status": "Open",
+          "Information to Customer": ""
+        });
+
+        lineNo += 10;
       });
 
-      body += `%0D%0AVAT: ${document.getElementById('vatRate').textContent} | VAT Amount: €${document.getElementById('vatAmount').textContent}`;
-      body += `%0D%0AGrand Total incl. VAT: €${grandTotal}`;
+      if (orderLines.length === 0) {
+        alert("No valid order lines found.");
+        return;
+      }
 
-      const mailtoLink = `mailto:${email}?subject=Order Confirmation&body=${body}`;
-      window.location.href = mailtoLink;
-    }  
+      // Send to backend
+      fetch('http://localhost:3000/api/save-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderLines)
+      })
+        .then(response => {
+          if (response.ok) {
+            alert("Order submitted successfully!");
+            window.location.href = "company-portal.html";
+          } else {
+            return response.text().then(text => { throw new Error(text); });
+          }
+        })
+        .catch(error => {
+          console.error("Failed to submit order:", error);
+          alert("Failed to submit order. Check backend connection.");
+        });
+    }
   </script>
 </body>
+
 </html>
