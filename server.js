@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.static(__dirname)); // serve all static files (e.g., HTML, JS)
 
 // ✅ This is the full, corrected /submit-order handler:
-app.post('/submit-order', (req, res) => {
+app.post('/api/save-orders', (req, res) => {
     const newOrder = req.body;
     const openOrdersPath = path.join(__dirname, 'data', 'open-orders.js');
 
