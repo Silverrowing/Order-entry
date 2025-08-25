@@ -1,37 +1,29 @@
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
+app.post('/submit-order', (req, res) => {
+    const newOrder = req.body;  // could be a single object or array
+    const openOrdersPath = path.join(__dirname, 'data', 'open-orders.js');
 
-const app = express();
-const PORT = 3000;
+    try {
+        // Read existing data
+        const fileContent = fs.readFileSync(openOrdersPath, 'utf-8');
+        const match = fileContent.match(/const openOrders\s*=\s*(\[[\s\S]*\]);/);
 
-app.use(cors());
-app.use(express.json());
+        if (!match) throw new Error("Couldn't parse existing open-orders.js");
 
-// Serve static files (HTML, CSS, JS)
-app.use(express.static(__dirname));
+        const existingOrders = JSON.parse(match[1]);
 
-// Serve /data folder as static too
-app.use('/data', express.static(path.join(__dirname, 'data')));
+        // Append new order(s)
+        const updatedOrders = Array.isArray(newOrder)
+            ? [...existingOrders, ...newOrder]
+            : [...existingOrders, newOrder];
 
-// Save orders endpoint
-app.post('/api/save-orders', (req, res) => {
-    const updatedOrders = req.body;
-    const filePath = path.join(__dirname, 'data', 'open-orders.js');
-    const fileContent = `const openOrders = ${JSON.stringify(updatedOrders, null, 2)};`;
+        // Prepare updated JS file content
+        const updatedContent = `const openOrders = ${JSON.stringify(updatedOrders, null, 2)};`;
 
-    fs.writeFile(filePath, fileContent, (err) => {
-        if (err) {
-            console.error('Failed to write file:', err);
-            res.status(500).send('Error saving data.');
-        } else {
-            console.log('File saved successfully.');
-            res.status(200).send('Data saved.');
-        }
-    });
-});
-
-app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
+        // Write to file
+        fs.writeFileSync(openOrdersPath, updatedContent, 'utf-8');
+        res.status(200).send('Order submitted successfully!');
+    } catch (error) {
+        console.error('Error updating open-orders.js:', error);
+        res.status(500).send('Failed to submit order. Server error.');
+    }
 });
