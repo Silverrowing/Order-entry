@@ -132,15 +132,15 @@
     let vatData = [];
     let currentCustomer = null;
 
-    fetch('product-catalog.json')
+    fetch('data/product-catalog.json')
       .then(res => res.json())
       .then(data => productCatalog = data);
 
-    fetch('customer-master.json')
+    fetch('data/customer-master.json')
       .then(res => res.json())
       .then(data => customerData = data);
 
-    fetch('vat.json')
+    fetch('data/vat.json')
       .then(res => res.json())
       .then(data => vatData = data);
 
