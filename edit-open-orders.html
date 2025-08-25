@@ -40,10 +40,24 @@
       box-sizing: border-box;
     }
 
-    .back-link {
+    .back-link,
+    .save-link {
       display: block;
       margin: 20px 0;
       text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
@@ -56,9 +70,15 @@
     </thead>
     <tbody id="tableBody"></tbody>
   </table>
+
+  <div class="save-link">
+    <button onclick="saveChanges()">💾 Save Changes</button>
+  </div>
+
   <div class="back-link">
     <a href="company-portal.html">&larr; Back to Company Section</a>
   </div>
+
   <script src="data/open-orders.js"></script>
   <script>
     const editableFields = ["Delivery Date", "Status", "Information to Customer"];
@@ -81,14 +101,12 @@
     if (Array.isArray(openOrders)) {
       const headers = Object.keys(openOrders[0]);
 
-      // Table header
       headers.forEach(header => {
         const th = document.createElement('th');
         th.textContent = header;
         tableHead.appendChild(th);
       });
 
-      // Table body
       openOrders.forEach(order => {
         const tr = document.createElement('tr');
         headers.forEach(key => {
@@ -102,6 +120,34 @@
         });
         tableBody.appendChild(tr);
       });
+    }
+
+    function saveChanges() {
+      const updatedOrders = [];
+      const rows = document.querySelectorAll("#ordersTable tbody tr");
+
+      rows.forEach(row => {
+        const cells = row.querySelectorAll("td");
+        const updatedOrder = {};
+        Object.keys(openOrders[0]).forEach((key, index) => {
+          if (editableFields.includes(key)) {
+            const input = cells[index].querySelector('input, select');
+            updatedOrder[key] = input.value;
+          } else {
+            updatedOrder[key] = cells[index].textContent;
+          }
+        });
+        updatedOrders.push(updatedOrder);
+      });
+
+      fetch('/api/save-orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedOrders)
+      })
+        .then(response => response.json())
+        .then(data => alert('✅ Changes saved successfully!'))
+        .catch(error => alert('❌ Failed to save changes.'));
     }
   </script>
 </body>
